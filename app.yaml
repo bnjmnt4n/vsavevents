@@ -5,17 +5,30 @@ api_version: 1
 threadsafe: yes
 
 handlers:
+#- url: /_ah/mail/events%40vsavevents\.appspotmail\.com
+#  script: email.app
+#  login: admin
+
+- url: /res
+  static_dir: res
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
 
 - url: .*
   script: main.app
+  login: required
+
+inbound_services:
+- mail
 
 libraries:
 - name: webapp2
   version: "2.5.2"
+
 - name: jinja2
   version: latest
+
 - name: markupsafe
   version: latest
