@@ -1,4 +1,4 @@
-vsavevents
+appenginetest
 ==========
 
 Test App Engine site
