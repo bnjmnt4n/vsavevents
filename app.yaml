@@ -5,9 +5,9 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-#- url: /_ah/mail/events%40vsavevents\.appspotmail\.com
-#  script: email.app
-#  login: admin
+- url: /_ah/mail/.+
+  script: mail.app
+  login: admin
 
 - url: /res
   static_dir: res

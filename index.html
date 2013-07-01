@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>VS AV Events</title>
+  <link rel="stylesheet" href="res/all.css">
+</head>
+<body>
+<h1>VS AV</h1>
+{% if user %}
+  <p>Hello, {{ user.email() }}!<p>
+  {% if events %}
+  <table>
+  	<tr>
+  	  <th>Date</th>
+  	  <th>Teacher</th>
+  	  <th>Event</th>
+  	  <th>Location</th>
+  	  <th>Levels</th>
+  	  <th>Start</th>
+  	  <th>End</th>
+  	  <th>Equipment</th>
+  	</tr>
+  {% for event in events %}
+	<tr>
+	  <td>{{ event.date }}</td>
+	  <td>{{ event.teacher }}</td>
+	  <td>{{ event.name }}</td>
+	  <td>{{ event.location }}</td>
+	  <td>{{ event.levels }}</td>
+	  <td>{{ event.start_time }}</td>
+	  <td>{{ event.end_time }}</td>
+	  <td>{{ event.equipment }}</td>
+	</tr>
+  {% endfor %}
+  </table>
+  {% endif %}
+  </table>
+{% else %}
+  You are not a valid user.
+{% endif %}
+</body>
+</html>

@@ -1,10 +1,10 @@
 from google.appengine.api import users
 
-users_string = '|demoneaux@gmail.com|weien1292@gmail.com|'
+users_string = '||demoneaux@gmail.com|weien1292@gmail.com|'
 
-def verify_access():
+def get_user():
 	current_user = users.get_current_user()
-	if users_string.find('|' + current_user.email() + '|') != -1:
-		return True
+	if users_string.find('|' + current_user.email() + '|'):
+		return current_user
 	else:
 		return False
