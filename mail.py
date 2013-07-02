@@ -1,14 +1,12 @@
 import logging
 import webapp2
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
-
 import parser
 
 class LogSenderHandler(InboundMailHandler):
-	def receive(self, message):
-		logging.info("Received a message from: " + message.sender)
-		parser.parse(message.bodies('text/plain'))
-
-app = webapp2.WSGIApplication([
-	('/_ah/mail/.+', InboundMailHandler)
-], debug=True)
+    def receive(self, mail_message):
+        logging.info("Received a message from: " + mail_message.sender)
+        message = mail_message.bodies('text/plain')
+        parser.parse(message)
+        
+app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)
