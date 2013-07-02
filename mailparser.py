@@ -10,6 +10,9 @@ def parse(message):
 	info = parse_info(vals[0], vals[1])
 	logging.info(info)
 	
+	if info == None:
+		return
+	
 	events_query = events.Event.query(events.Event.name == info['name'])
 	events_list = events_query.fetch()
 	if len(events_list) == 0:
