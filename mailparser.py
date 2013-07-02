@@ -23,7 +23,7 @@ def parse_info(info, equipment):
 	new_vals = []
 
 	for val in vals:
-		if val != '' and new_vals[0].find(': ') != -1:
+		if val != '' and val.find(': ') != -1:
 			new_vals.append(val)
 
 	# invalid input
@@ -63,7 +63,7 @@ def parse_equipment(line):
 	new_vals = []
 
 	for val in vals:
-		if val != '' and val.find("EQUIPMENT NEEDED: ") == -1:
+		if val != '' and val.find("EQUIPMENT NEEDED:") == -1:
 			new_vals.append(val)
 
 	for i in range(0, len(new_vals)): 
