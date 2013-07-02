@@ -16,7 +16,7 @@ class MainHandler(webapp2.RequestHandler):
     	template = JINJA_ENVIRONMENT.get_template('index.html')
     	user = users.get_user()
 
-    	events_query = events.Event.query().order(-events.Event.date)
+    	events_query = events.Event.query().order(-events.Event.date, events.Event.start_time, events.Event.end_time)
         event_list = events_query.fetch(10)
         
         self.response.out.write(template.render({

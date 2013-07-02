@@ -13,7 +13,7 @@ def parse(message):
 	if info == None:
 		return
 	
-	events_query = events.Event.query(events.Event.name == info['name'])
+	events_query = events.Event.query(ndb.AND(events.Event.name == info['name'], events.Event.date == info['date']), ndb.AND(events.Event.end_time == info['end_time'], events.Event.start_time == info['start_time']))
 	events_list = events_query.fetch()
 	if len(events_list) == 0:
 		events.Event(**info).put()
