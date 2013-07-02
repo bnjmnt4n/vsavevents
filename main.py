@@ -15,11 +15,13 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
     	template = JINJA_ENVIRONMENT.get_template('index.html')
     	user = users.get_user()
-    	results = events.Event.all()
 
+    	events_query = events.Event.query().order(-events.Event.date)
+        event_list = events_query.fetch(10)
+        
         self.response.out.write(template.render({
         	'user': user,
-        	'events': results
+        	'events': event_list
         }))
 
 app = webapp2.WSGIApplication([

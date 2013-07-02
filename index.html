@@ -8,7 +8,9 @@
 <h1>VS AV</h1>
 {% if user %}
   <p>Hello, {{ user.email() }}!<p>
+  
   {% if events %}
+  
   <table>
   	<tr>
   	  <th>Date</th>
@@ -19,6 +21,7 @@
   	  <th>Levels</th>
   	  <th>Start</th>
   	  <th>End</th>
+  	  <th>Equipment</th>
   	</tr>
   {% for event in events %}
 	<tr>
@@ -30,11 +33,17 @@
 	  <td>{{ event.levels }}</td>
 	  <td>{{ event.start_time }}</td>
 	  <td>{{ event.end_time }}</td>
+	  <td><a href="#{{ event.name }}">#</a></td>
 	</tr>
   {% endfor %}
   </table>
+  
+  {% for event in events %}
+	<h1 id="{{ event.name }}">Equipment for '{{ event.name }}'</h1>
+    <p>{{ event.equipment }}</p>
+  {% endfor %}
+  
   {% endif %}
-  </table>
 {% else %}
   You are not a valid user.
 {% endif %}
