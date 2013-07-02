@@ -63,7 +63,7 @@ def parse_equipment(line):
 	new_vals = []
 
 	for val in vals:
-		if val != '' and val.find("EQUIPMENT NEEDED:") == -1:
+		if val.strip() != '' and val.find("EQUIPMENT NEEDED:") == -1:
 			new_vals.append(val)
 
 	for i in range(0, len(new_vals)): 
