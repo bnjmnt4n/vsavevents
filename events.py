@@ -12,3 +12,4 @@ class Event(ndb.Model):
 	levels = ndb.StringProperty(indexed=False)
 	department = ndb.StringProperty(indexed=False)
 	equipment = ndb.StringProperty(indexed=False)
+	url = ndb.StringProperty(indexed=False)

@@ -33,13 +33,13 @@
 	  <td>{{ event.levels }}</td>
 	  <td>{{ event.start_time }}</td>
 	  <td>{{ event.end_time }}</td>
-	  <td><a href="#{{ event.name }}">#</a></td>
+	  <td><a href="#{{ event.url }}">#</a></td>
 	</tr>
   {% endfor %}
   </table>
   
   {% for event in events %}
-	<h1 id="{{ event.name }}">Equipment for '{{ event.name }}'</h1>
+	<h1 id="{{ event.url }}">Equipment for '{{ event.name }}'</h1>
     <p>{{ event.equipment }}</p>
   {% endfor %}
   

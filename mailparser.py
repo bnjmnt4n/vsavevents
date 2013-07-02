@@ -55,6 +55,7 @@ def parse_info(info, equipment):
 		new_vals[val] = datetime.time(int(t[0:2]), int(t[2:4]))
 
 	new_vals['equipment'] = parse_equipment(equipment)
+	new_vals['url'] = new_vals['name'].lower().replace(' ', '-')
 
 	return new_vals
 
