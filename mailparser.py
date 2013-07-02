@@ -23,7 +23,7 @@ def parse_info(info, equipment):
 	new_vals = []
 
 	for val in vals:
-		if val != '':
+		if val != '' and new_vals[0].find(': ') != -1:
 			new_vals.append(val)
 
 	# invalid input
