@@ -1,20 +1,14 @@
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
-class Event(db.Model):
-	teacher = db.StringProperty()
-	location = db.StringProperty()
-	name = db.StringProperty()
-	levels = db.StringProperty()
-	department = db.StringProperty()
-	date = db.DateProperty()
-	start_time = db.TimeProperty()
-	end_time = db.TimeProperty()
+class Event(ndb.Model):
+	name = ndb.StringProperty()
+	date = ndb.DateProperty(auto_now_add=True)
+	start_time = ndb.TimeProperty()
+	end_time = ndb.TimeProperty()
 	
-class Equipment(db.Model):
-	name = db.StringProperty()
-	microphones = db.StringProperty()
-	rostrum_microphones = db.StringProperty()
-	spotlights = db.StringProperty()
-	projector = db.StringProperty()
-	microphone_stands = db.StringProperty()
-	remarks = db.StringProperty()
+	# variables that shouldn't be indexed
+	teacher = ndb.StringProperty(indexed=False)
+	location = ndb.StringProperty(indexed=False)
+	levels = ndb.StringProperty(indexed=False)
+	department = ndb.StringProperty(indexed=False)
+	equipment = ndb.StringProperty(indexed=False)
