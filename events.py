@@ -5,7 +5,7 @@ class Event(db.Model):
 	location = db.StringProperty()
 	name = db.StringProperty()
 	levels = db.StringProperty()
+	department = db.StringProperty()
 	date = db.DateProperty()
 	start_time = db.TimeProperty()
 	end_time = db.TimeProperty()
-	equipment = db.StringProperty()

@@ -14,22 +14,22 @@
   	  <th>Date</th>
   	  <th>Teacher</th>
   	  <th>Event</th>
+  	  <th>Department</th>
   	  <th>Location</th>
   	  <th>Levels</th>
   	  <th>Start</th>
   	  <th>End</th>
-  	  <th>Equipment</th>
   	</tr>
   {% for event in events %}
 	<tr>
 	  <td>{{ event.date }}</td>
 	  <td>{{ event.teacher }}</td>
 	  <td>{{ event.name }}</td>
+	  <td>{{ event.department }}</td>
 	  <td>{{ event.location }}</td>
 	  <td>{{ event.levels }}</td>
 	  <td>{{ event.start_time }}</td>
 	  <td>{{ event.end_time }}</td>
-	  <td>{{ event.equipment }}</td>
 	</tr>
   {% endfor %}
   </table>
