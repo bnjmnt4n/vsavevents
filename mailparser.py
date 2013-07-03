@@ -1,11 +1,12 @@
 import logging
-import datetime
-import events
-import re
+from datetime import date, time
+
+from models import Event
 from google.appengine.ext import ndb
 
 def parse(message):
-	vals = message.split('================================================') # split up the divider between info and equipment
+	# split up the divider between info and equipment
+	vals = message.split('================================================')
 	
 	info = parse_info(vals[0], vals[1])
 	logging.info(info)
@@ -13,64 +14,85 @@ def parse(message):
 	if info == None:
 		return
 	
-	events_query = events.Event.query(ndb.AND(events.Event.name == info['name'], events.Event.date == info['date']), ndb.AND(events.Event.end_time == info['end_time'], events.Event.start_time == info['start_time']))
+	events_query = Event.query(
+		ndb.AND(Event.name == info['name'], Event.date == info['date']),
+		ndb.AND(Event.end_time == info['end_time'], Event.start_time == info['start_time'])
+	)
 	events_list = events_query.fetch()
+
 	if len(events_list) == 0:
-		events.Event(**info).put()
+		Event(**info).put()
 
 def parse_info(info, equipment):
 	vals = info.split('\n')
-	new_vals = []
-
-	for val in vals:
-		if val != '' and val.find(': ') != -1:
-			new_vals.append(val)
-
-	# invalid input
-	if new_vals[0].find('::: A USER HAS') == -1:
-		return None
-
-	vals = {
-		'teacher': new_vals[1],
-		'name': new_vals[2],
-		'department': new_vals[3],
-		'date': new_vals[4],
-		'levels': new_vals[6],
-		'location': new_vals[7],
-		'start_time': new_vals[8],
-		'end_time': new_vals[9]
-	}
+	vals = [val for val in vals if val.strip() != '' and val.find(': ') != -1]
 
 	new_vals = {}
 
-	for val in vals: 
-		value = vals[val].split(': ')[1]
-		new_vals[val] = value
+	# invalid input
+	if vals[0].find('::: A USER HAS') == -1:
+		return None
+	else:
+		vals = vals[1:]
 
-	d = new_vals['date'].split('/')
-	new_vals['date'] = datetime.date(int(d[2]), int(d[1]), int(d[0]))
+	vals = [val.split(': ')[1] for val in vals]
 
-	for val in ['start_time', 'end_time']:
-		t = new_vals[val]
-		new_vals[val] = datetime.time(int(t[0:2]), int(t[2:4]))
+	vals = {
+		'teacher': vals[0],
+		'name': vals[1],
+		'department': vals[2],
+		'date': vals[3],
+		'levels': vals[5],
+		'location': vals[6],
+		'start_time': vals[7],
+		'end_time': vals[8]
+	}
 
-	new_vals['equipment'] = parse_equipment(equipment)
+	# date
+	d = vals['date'].split('/')
+	vals['date'] = date(int(d[2]), int(d[1]), int(d[0]))
 
-	return new_vals
+	# start and end times
+	for val in ('start_time', 'end_time'):
+		t = vals[val]
+		vals[val] = time(int(t[0:2]), int(t[2:4]))
 
-def parse_equipment(line):
-	vals = line.split('\n')
+	vals['equipment'] = parse_equipment(equipment)
+
+	return vals
+
+def parse_equipment(lines):
+	vals = lines.split('\n')
+	vals = [val for val in vals if val.strip() != '']
+
+	# invalid input
+	if vals[0].find('EQUIPMENT NEEDED:') == -1:
+		return None
+	else:
+		vals = vals[1:6]
+
 	new_vals = []
+	vals = [val.split(', ')[0].split(': ')[1].strip() for val in vals]
+	strs = ['Mic(s)', 'Rostrum', 'Spotlights', 'Projector', 'Mic Stand(s)']
 
-	for val in vals:
-		if val.strip() != '' and val.find("EQUIPMENT NEEDED:") == -1:
-			new_vals.append(val)
+	for i in range(0, len(vals)):
+		string = ''
+		val = vals[i]
 
-	for i in range(0, len(new_vals)): 
-		val = new_vals[i]
-		if val.find(',    Purpose') == -1:
-			continue
-		new_vals[i] = val.split(',    Purpose')[0]
-		
-	return "<br>".join(new_vals)
+		if val == 'Yes':
+			val = True
+		elif val == 'No':
+			val = False
+		else:
+			try:
+				val = int(val)
+			except Exception, e:
+				pass
 
+		if val:
+			if isinstance(val, int) and val is not True:
+				string += str(val) + ' '
+			string += strs[i]
+			new_vals.append(string)
+
+	return ", ".join(new_vals)

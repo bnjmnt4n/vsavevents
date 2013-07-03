@@ -5,12 +5,13 @@ import mailparser
 
 class LogSenderHandler(InboundMailHandler):
     def receive(self, mail_message):
-        logging.info("Received a message from: " + mail_message.sender)
+        logging.info("%s: %s" % (mail_message.sender, mail_message.subject))
         plaintext = mail_message.bodies('text/plain')
         
         for text in plaintext:
             txtmsg = ""
             txtmsg = text[1].decode()
+            logging.info(txtmsg)
             mailparser.parse(txtmsg)
         
 app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)

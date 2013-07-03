@@ -5,12 +5,12 @@
   <link rel="stylesheet" href="res/all.css">
 </head>
 <body>
-<h1>VS AV</h1>
+<h1>VS AV Events</h1>
+<img src="res/vsav.jpg">
 {% if user %}
   <p>Hello, {{ user.email() }}!<p>
-  
+  <a href="{{ logoutUrl }}">Logout</a>
   {% if events %}
-  
   <table>
   	<tr>
   	  <th>Date</th>
@@ -23,24 +23,26 @@
   	  <th>End</th>
   	  <th>Equipment</th>
   	</tr>
-  {% for event in events %}
-	<tr>
-	  <td>{{ event.date }}</td>
-	  <td>{{ event.teacher }}</td>
-	  <td>{{ event.name }}</td>
-	  <td>{{ event.department }}</td>
-	  <td>{{ event.location }}</td>
-	  <td>{{ event.levels }}</td>
-	  <td>{{ event.start_time }}</td>
-	  <td>{{ event.end_time }}</td>
-	  <td>{{ event.equipment }}</td>
-	</tr>
-  {% endfor %}
+    {% for event in events %}
+  	<tr>
+  	  <td>{{ event.date }}</td>
+  	  <td>{{ event.teacher }}</td>
+  	  <td>{{ event.name }}</td>
+  	  <td>{{ event.department }}</td>
+  	  <td>{{ event.location }}</td>
+  	  <td>{{ event.levels }}</td>
+  	  <td>{{ event.start_time }}</td>
+  	  <td>{{ event.end_time }}</td>
+  	  <td>{{ event.equipment }}</td>
+  	</tr>
+    {% endfor %}
   </table>
-  
   {% endif %}
+
 {% else %}
-  You are not a valid user.
+
+  <p>Please log in: <a href="{{ loginUrl }}">Login</a></p>
+
 {% endif %}
 </body>
 </html>

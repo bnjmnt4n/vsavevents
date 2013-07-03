@@ -1,0 +1,42 @@
+::: A USER HAS ... :::
+
+Name of Teacher-In-Charge: Mr Lorem Ipsum
+
+Event/Activity: Lorem Ipsum Day
+
+Department/CCA: Lorem Ipsum Club
+
+Event Date: 01/07/2013
+
+Day: Monday
+
+Level Involved: All
+
+Venue: Auditorium
+
+Actual Start Time: 1500 hrs
+
+Estimated End Time: 1730 hrs
+
+Remarks:
+
+
+
+
+================================================
+
+EQUIPMENT NEEDED:
+
+Microphones: 1,    Purpose:
+
+Rostrum Microphones: Yes,    Purpose:
+
+Spot Lights for Performance: Yes,    Purpose:
+
+LCD Projector: Yes,    Purpose:
+
+Microphone Stands: 1,    Purpose:
+
+Remarks:
+
+
