@@ -5,8 +5,17 @@ from models import Event
 from google.appengine.ext import ndb
 
 def parse(message):
+	# parse special cases here
+
+	msg = message.split('::: A USER HAS ENTERED A REQUEST FOR A AUDIO VISUAL WORK ORDER ::::')
+	if len(msg) != 2: # decline all messages that aren't work orders
+		return
+
 	# split up the divider between info and equipment
-	vals = message.split('================================================')
+	vals = msg[1].split('================================================')
+	
+	if len(vals) != 2: # decline all messages that aren't work orders
+		return
 	
 	info = parse_info(vals[0], vals[1])
 	logging.info(info)
@@ -28,12 +37,6 @@ def parse_info(info, equipment):
 	vals = [val for val in vals if val.strip() != '' and val.find(': ') != -1]
 
 	new_vals = {}
-
-	# invalid input
-	if vals[0].find('::: A USER HAS') == -1:
-		return None
-	else:
-		vals = vals[1:]
 
 	vals = [val.split(': ')[1] for val in vals]
 
