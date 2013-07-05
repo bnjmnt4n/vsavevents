@@ -72,6 +72,7 @@ def parse_equipment(lines):
 	if vals[0].find('EQUIPMENT NEEDED:') == -1:
 		return None
 	else:
+		remarks = vals[6:]
 		vals = vals[1:6]
 
 	new_vals = []
@@ -98,4 +99,7 @@ def parse_equipment(lines):
 			string += strs[i]
 			new_vals.append(string)
 
-	return ", ".join(new_vals)
+	remarks_str = ""
+	if len(remarks) > 0:
+		remarks_str = "<br>" + "[" + "".join(remarks).strip("Remarks:").strip() + "]"
+	return ", ".join(new_vals) + remarks_str
