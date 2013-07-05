@@ -48,9 +48,13 @@ def parse_info(info, equipment):
 		'levels': vals[5],
 		'location': vals[6],
 		'start_time': vals[7],
-		'end_time': vals[8],
-		'remarks': vals[9]
+		'end_time': vals[8]
 	}
+	
+	if len(vals) == 9: # remarks exists
+		vals['remarks'] = vals[9]
+	else:
+		vals['remarks'] = ""
 
 	# date
 	d = vals['date'].split('/')
