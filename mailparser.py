@@ -48,7 +48,8 @@ def parse_info(info, equipment):
 		'levels': vals[5],
 		'location': vals[6],
 		'start_time': vals[7],
-		'end_time': vals[8]
+		'end_time': vals[8],
+		'remarks': vals[9]
 	}
 
 	# date
@@ -99,7 +100,9 @@ def parse_equipment(lines):
 			string += strs[i]
 			new_vals.append(string)
 
-	remarks_str = ""
-	if len(remarks) > 0:
-		remarks_str = "<br>" + "[" + "".join(remarks).strip("Remarks:").strip() + "]"
+	remarks_str = "".join(remarks).strip("Remarks:").strip()
+	if remarks_str != "":
+		remarks_str = "<br>" + "[" + remarks_str + "]"
+	else:
+		remarks_str = ""
 	return ", ".join(new_vals) + remarks_str

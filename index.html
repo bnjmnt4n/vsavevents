@@ -22,6 +22,7 @@
   	  <th>Start</th>
   	  <th>End</th>
   	  <th>Equipment</th>
+  	  <th>Remarks</th>
   	</tr>
     {% for event in events %}
   	<tr>
@@ -34,6 +35,7 @@
   	  <td>{{ event.start_time }}</td>
   	  <td>{{ event.end_time }}</td>
   	  <td>{{ event.equipment }}</td>
+  	  <td>{{ event.remarks }}</td>
   	</tr>
     {% endfor %}
   </table>
