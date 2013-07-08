@@ -1,41 +1,42 @@
-::: A USER HAS ... :::
+          ::: A USER HAS ENTERED A REQUEST FOR A AUDIO VISUAL WORK ORDER ::::
 
-Name of Teacher-In-Charge: Mr Lorem Ipsum
+Name of Teacher-In-Charge: ADRIAN TEO
 
-Event/Activity: Lorem Ipsum Day
+Event/Activity: STUDENT LEADERS' CAMP
 
-Department/CCA: Lorem Ipsum Club
+Department/CCA: CLE
 
-Event Date: 01/07/2013
+Event Date: 06/07/2013
 
-Day: Monday
+Day: Saturday
 
-Level Involved: All
+Level Involved: SEC 3 AND 4 STUDENT LEADERS
 
-Venue: Auditorium
+Venue: auditorium
 
-Actual Start Time: 1500 hrs
+Actual Start Time: 0730 hrs
 
-Estimated End Time: 1730 hrs
+Estimated End Time: 2100 hrs
+
 
 Remarks:
 
 
-
-
 ================================================
 
-EQUIPMENT NEEDED:
+ EQUIPMENT NEEDED:
 
-Microphones: 1,    Purpose:
+Microphones: 1,    Purpose: 1 PRESENTER
 
-Rostrum Microphones: Yes,    Purpose:
+Rostrum Microphones: Yes,    Purpose: PRESENTATION
 
-Spot Lights for Performance: Yes,    Purpose:
+Spot lights for performance: No,    Purpose:
 
-LCD Projector: Yes,    Purpose:
+LCD Projector: Yes,    Purpose: powerpoint
 
-Microphone Stands: 1,    Purpose:
+
+
+Microphone Stands: 0,    Purpose:
 
 Remarks:
 
