@@ -5,8 +5,17 @@ from models import Event
 from google.appengine.ext import ndb
 
 def parse(message):
+	# parse special cases here
+
+	msg = message.split('::: A USER HAS ENTERED A REQUEST FOR A AUDIO VISUAL WORK ORDER ::::')
+	if len(msg) != 2: # decline all messages that aren't work orders
+		return
+
 	# split up the divider between info and equipment
-	vals = message.split('================================================')
+	vals = msg[1].split('================================================')
+	
+	if len(vals) != 2: # decline all messages that aren't work orders
+		return
 	
 	info = parse_info(vals[0], vals[1])
 	logging.info(info)
@@ -29,12 +38,6 @@ def parse_info(info, equipment):
 
 	new_vals = {}
 
-	# invalid input
-	if vals[0].find('::: A USER HAS') == -1:
-		return None
-	else:
-		vals = vals[1:]
-
 	vals = [val.split(': ')[1] for val in vals]
 
 	vals = {
@@ -47,6 +50,11 @@ def parse_info(info, equipment):
 		'start_time': vals[7],
 		'end_time': vals[8]
 	}
+	
+	if len(vals) == 9: # remarks exists
+		vals['remarks'] = vals[9]
+	else:
+		vals['remarks'] = ""
 
 	# date
 	d = vals['date'].split('/')
@@ -69,6 +77,7 @@ def parse_equipment(lines):
 	if vals[0].find('EQUIPMENT NEEDED:') == -1:
 		return None
 	else:
+		remarks = vals[6:]
 		vals = vals[1:6]
 
 	new_vals = []
@@ -95,4 +104,9 @@ def parse_equipment(lines):
 			string += strs[i]
 			new_vals.append(string)
 
-	return ", ".join(new_vals)
+	remarks_str = "".join(remarks).strip("Remarks:").strip()
+	if remarks_str != "":
+		remarks_str = "<br>" + "[" + remarks_str + "]"
+	else:
+		remarks_str = ""
+	return ", ".join(new_vals) + remarks_str
