@@ -1,15 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>VS AV Events</title>
+  <title>{{ title }} - vsavevents</title>
   <link rel="stylesheet" href="res/all.css">
 </head>
 <body>
-<h1>VS AV Events</h1>
-<img src="res/vsav.jpg">
+<header class="cf">
+  <h1><a href="/">vsavevents</a></h1>
+  <!--img src="res/vsav.jpg"-->
+  <nav>
+    <ul class="cf">
+      <li><a href="/archives">Archives</a></li>
+      <li>
+        {% if user %}
+        <a href="{{ logoutUrl }}">Logout</a>
+        {% else %}
+        <a href="{{ loginUrl }}">Login</a>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
+</header>
+<div id="main">
 {% if user %}
   <p>Hello, {{ user.email() }}!<p>
-  <a href="{{ logoutUrl }}">Logout</a>
+  <h2>{{ title }}</h2>
   {% if events %}
   <table>
   	<tr>
@@ -43,8 +58,9 @@
 
 {% else %}
 
-  <p>Please log in: <a href="{{ loginUrl }}">Login</a></p>
+  <p>Please log in.</p>
 
 {% endif %}
+</div>
 </body>
 </html>

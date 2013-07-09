@@ -33,12 +33,12 @@ def parse(message):
 		Event(**info).put()
 
 def parse_info(info, equipment):
-	vals = info.split('\n')
-	vals = [val for val in vals if val.strip() != '' and val.find(': ') != -1]
-
-	new_vals = {}
-
+	vals = [val for val in info.split('\n') if val.strip() != '' and val.find(': ') != -1]
 	vals = [val.split(': ')[1] for val in vals]
+
+	remarks = ''
+	if len(vals) == 10:
+		remarks = vals[9]
 
 	vals = {
 		'teacher': vals[0],
@@ -48,13 +48,9 @@ def parse_info(info, equipment):
 		'levels': vals[5],
 		'location': vals[6],
 		'start_time': vals[7],
-		'end_time': vals[8]
+		'end_time': vals[8],
+		'remarks': remarks.strip()
 	}
-	
-	if len(vals) == 9: # remarks exists
-		vals['remarks'] = vals[9]
-	else:
-		vals['remarks'] = ""
 
 	# date
 	d = vals['date'].split('/')
@@ -70,8 +66,7 @@ def parse_info(info, equipment):
 	return vals
 
 def parse_equipment(lines):
-	vals = lines.split('\n')
-	vals = [val for val in vals if val.strip() != '']
+	vals = [val for val in lines.split('\n') if val.strip() != '']
 
 	# invalid input
 	if vals[0].find('EQUIPMENT NEEDED:') == -1:
@@ -105,8 +100,5 @@ def parse_equipment(lines):
 			new_vals.append(string)
 
 	remarks_str = "".join(remarks).strip("Remarks:").strip()
-	if remarks_str != "":
-		remarks_str = "<br>" + "[" + remarks_str + "]"
-	else:
-		remarks_str = ""
+	remarks_str = "<br>" + "[" + remarks_str + "]" if remarks_str != "" else ""
 	return ", ".join(new_vals) + remarks_str
