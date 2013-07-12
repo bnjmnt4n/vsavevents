@@ -1,0 +1,39 @@
+{% extends 'templates/base.html' %}
+{% block content %}
+{% if user %}
+  {% if events %}
+  <table>
+  	<tr>
+  	  <th>Date</th>
+  	  <th>Teacher</th>
+  	  <th>Event</th>
+  	  <th>Department</th>
+  	  <th>Location</th>
+  	  <th>Levels</th>
+  	  <th>Start</th>
+  	  <th>End</th>
+  	  <th>Equipment</th>
+  	  <th>Remarks</th>
+  	</tr>
+    {% for event in events %}
+  	<tr>
+  	  <td>{{ event.date }}</td>
+  	  <td>{{ event.teacher }}</td>
+  	  <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
+  	  <td>{{ event.department }}</td>
+  	  <td>{{ event.location }}</td>
+  	  <td>{{ event.levels }}</td>
+  	  <td>{{ event.start_time.strftime('%H:%M') }}</td>
+  	  <td>{{ event.end_time.strftime('%H:%M') }}</td>
+  	  <td>{{ event.equipment }}</td>
+  	  <td>{{ event.remarks }}</td>
+  	</tr>
+    {% else %}
+      <p>There are no events!</p>
+    {% endfor %}
+  </table>
+  {% endif %}
+{% else %}
+  <p>Please log in.</p>
+{% endif %}
+{% endblock content %}

@@ -17,7 +17,7 @@ handlers:
   upload: favicon\.ico
 
 - url: .*
-  script: main.app
+  script: events.app
   secure: always
 
 inbound_services:

@@ -21,6 +21,11 @@ h1 {
 	margin: 0;
 }
 
+h1 a, h1 a:visited {
+    font-weight: 100;
+    cursor: default;
+}
+
 nav {
 	float: right;
 }
@@ -36,6 +41,7 @@ nav ul {
 
 nav ul li {
 	float: left;
+	padding: 5px;
 }
 
 table {

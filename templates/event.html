@@ -1,0 +1,23 @@
+{% extends 'templates/base.html' %}
+{% block content %}
+{% if user %}
+  {% if event %}
+  <table>
+      <tr><th>Date</th><td>{{ event.date }}</td></tr>
+      <tr><th>Teacher</th><td>{{ event.teacher }}</td></tr>
+      <tr><th>Event</th><td>{{ event.name }}</td></tr>
+      <tr><th>Department</th><td>{{ event.department }}</td></tr>
+      <tr><th>Location</th><td>{{ event.location }}</td></tr>
+      <tr><th>Levels</th><td>{{ event.levels }}</td></tr>
+      <tr><th>Start</th><td>{{ event.start_time }}</td></tr>
+      <tr><th>End</th><td>{{ event.end_time }}</td></tr>
+      <tr><th>Equipment</th><td>{{ event.equipment }}</td></tr>
+      <tr><th>Remarks</th><td>{{ events.remarks }}</td></tr>
+  </table>
+  {% else %}
+    There is no such event!
+  {% endif %}
+{% else %}
+  <p>Please log in.</p>
+{% endif %}
+{% endblock content %}
