@@ -1,18 +1,26 @@
 import logging
 import webapp2
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
-import mailparser
+from parsers import old_format
 
 class LogSenderHandler(InboundMailHandler):
     def receive(self, mail_message):
-        logging.info("%s: %s" % (mail_message.sender, mail_message.subject))
-        plaintext = mail_message.bodies('text/plain')
+        sender = mail_message.sender
+        subject = mail_message.subject
 
-        if mail_message.sender in ['demoneaux@gmail.com', 'wei1292@gmail.com', 'webmaster@vs.moe.edu.sg']:
-            for text in plaintext:
-                txtmsg = ""
-                txtmsg = text[1].decode()
-                logging.info(txtmsg)
-                mailparser.parse(txtmsg)
+        logging.info("%s: %s" % (sender, subject))
+
+        text_bodies = mail_message.bodies('text/plain')
+        html_bodies = mail_message.bodies('text/html')
+
+        if sender == "vsavict@gmail.com":
+            pass
+        elif sender == "webmaster@vs.moe.edu.sg":
+            for text in text_bodies:
+                txt = text[1].decode()
+                logging.info(txt)
+                old_format.parse(txt)
+        else:
+            pass
         
 app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)
