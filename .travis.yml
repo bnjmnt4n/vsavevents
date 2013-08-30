@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+
+script: test/test.py
+
+after_success:
+  - chmod 600 .travis/deploy_key.pem
+  - ssh-add .travis/deploy_key.pem
+  - git remote add appengine https://code.google.com/id/4LPvhFZaXYE/
+  - git push appengine
