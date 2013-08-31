@@ -21,9 +21,14 @@ class MainHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if not user.is_authorized(curr_user):
+        if curr_user and not user.is_authorized(curr_user):
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render())
+            self.response.out.write(template.render({
+                'title': 'Access Denied',
+                'loginUrl': loginUrl,
+                'logoutUrl': logoutUrl,
+                'user': curr_user
+            }))
             return
 
     	events_query = EVENTS_QUERY.bind(date.getdate())
@@ -43,9 +48,14 @@ class ArchivesHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if not user.is_authorized(curr_user):
+        if curr_user and not user.is_authorized(curr_user):
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render())
+            self.response.out.write(template.render({
+                'title': 'Access Denied',
+                'loginUrl': loginUrl,
+                'logoutUrl': logoutUrl,
+                'user': curr_user
+            }))
             return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
@@ -65,9 +75,14 @@ class EventHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if not user.is_authorized(curr_user):
+        if curr_user and not user.is_authorized(curr_user):
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render())
+            self.response.out.write(template.render({
+                'title': 'Access Denied',
+                'loginUrl': loginUrl,
+                'logoutUrl': logoutUrl,
+                'user': curr_user
+            }))
             return
 
         event = ndb.Key(urlsafe=key).get()
