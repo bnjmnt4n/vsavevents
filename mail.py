@@ -1,7 +1,7 @@
 import logging
 import webapp2
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
-from parsers import old_format
+from parsers import old_format, new_format
 
 class LogSenderHandler(InboundMailHandler):
     def receive(self, mail_message):
@@ -14,13 +14,19 @@ class LogSenderHandler(InboundMailHandler):
         html_bodies = mail_message.bodies('text/html')
 
         if sender == "vsavict@gmail.com":
-            pass
+            for text in html_bodies:
+                txt = text[1].decode()
+                logging.info(txt)
+                new_format.parse(txt)
         elif sender == "webmaster@vs.moe.edu.sg":
             for text in text_bodies:
                 txt = text[1].decode()
                 logging.info(txt)
                 old_format.parse(txt)
-        else:
-            pass
+        elif sender in ('demoneaux@gmail.com', 'wei1292@gmail.com'):
+            for text in html_bodies:
+                txt = text[1].decode()
+                logging.info(txt)
+                new_format.parse(txt)
         
 app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)
