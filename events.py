@@ -18,13 +18,18 @@ ARCHIVES_QUERY = Event.gql("WHERE date < DATE(:1) ORDER BY date DESC, start_time
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-    	template = JINJA_ENVIRONMENT.get_template('templates/events.html')
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+
+        if not user.is_authorized(curr_user):
+            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
+            self.response.out.write(template.render())
+            return
 
     	events_query = EVENTS_QUERY.bind(date.getdate())
         event_list = events_query.fetch(20)
         
+        template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Events',
             'loginUrl': loginUrl,
@@ -35,13 +40,18 @@ class MainHandler(webapp2.RequestHandler):
 
 class ArchivesHandler(webapp2.RequestHandler):
     def get(self):
-    	template = JINJA_ENVIRONMENT.get_template('templates/events.html')
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+
+        if not user.is_authorized(curr_user):
+            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
+            self.response.out.write(template.render())
+            return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
         event_list = events_query.fetch(10)
         
+        template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Archives',
             'loginUrl': loginUrl,
@@ -52,13 +62,18 @@ class ArchivesHandler(webapp2.RequestHandler):
 
 class EventHandler(webapp2.RequestHandler):
     def get(self, key):
-        template = JINJA_ENVIRONMENT.get_template('templates/event.html')
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+
+        if not user.is_authorized(curr_user):
+            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
+            self.response.out.write(template.render())
+            return
 
         event = ndb.Key(urlsafe=key).get()
 
         if event:
+            template = JINJA_ENVIRONMENT.get_template('templates/event.html')
             self.response.out.write(template.render({
                 'title': 'Event: ' + event.name,
                 'loginUrl': loginUrl,

@@ -17,5 +17,6 @@ class Event(ndb.Model):
 class User(ndb.Model):
 	user = ndb.UserProperty()
 	name = ndb.StringProperty()
+	email = ndb.StringProperty()
 	level = ndb.IntegerProperty() # 1 for admin, 0 for normal.
 
