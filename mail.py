@@ -13,20 +13,15 @@ class LogSenderHandler(InboundMailHandler):
         text_bodies = mail_message.bodies('text/plain')
         html_bodies = mail_message.bodies('text/html')
 
-        if sender == "vsavict@gmail.com":
+        if sender in ("vsavict@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com"):
             for text in html_bodies:
                 txt = text[1].decode()
                 logging.info(txt)
                 new_format.parse(txt)
-        elif sender == "webmaster@vs.moe.edu.sg":
+        elif sender in ("webmaster@vs.moe.edu.sg"): # to be shifted to new format soon
             for text in text_bodies:
                 txt = text[1].decode()
                 logging.info(txt)
                 old_format.parse(txt)
-        elif sender in ('demoneaux@gmail.com', 'wei1292@gmail.com'):
-            for text in html_bodies:
-                txt = text[1].decode()
-                logging.info(txt)
-                new_format.parse(txt)
         
 app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)
