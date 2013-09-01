@@ -1,54 +1,78 @@
 import logging
-from datetime import date, time
+from datetime import date, time, datetime
 
 from models import Event
 from google.appengine.ext import ndb
 
-import strip_html
+import re
 
 def parse(msg):
-  msg = strip_html.stript_tags(msg)
-	info = parse(msg)
-	logging.info(info)
-	
-	events_query = Event.query(
-		ndb.AND(Event.name == info['name'], Event.date == info['date']),
-		ndb.AND(Event.end_time == info['end_time'], Event.start_time == info['start_time'])
-	)
-	events_list = events_query.fetch()
+    msg = re.sub('<[^<]+?>', '', msg)
+    
+    if msg.find('Dear AV/IT Dept, AV Teacher ICs, AV Club members,') == -1: 
+        # decline all messages that aren't work orders
+        logging.error("Message is not a valid work order. Disposing message.")
+        return
+    
+    info = parse_info(msg)
+    logging.info(info)
+    
+    events_query = Event.query(
+        ndb.AND(Event.name == info['name'], Event.date == info['date']),
+        ndb.AND(Event.end_time == info['end_time'], Event.start_time == info['start_time'])
+    )
+    events_list = events_query.fetch()
 
-	if len(events_list) == 0:
-		Event(**info).put()
+    if not len(events_list) == 0:
+        for val in events_list:
+            val.key.delete()
+    Event(**info).put()
 
-def parse(msg):
-	vals = [val for val in info.split('\n') if val.strip() != '' and val.find(': ') != -1]
-	vals = [val.split(': ')[1] for val in vals]
+def parse_info(msg):
+    vals = [val for val in msg.split('\n') if val.strip() != '' and val.find(': ') != -1]
+    vals = dict(val.split(": ") for val in vals)
 
-	remarks = ''
-	if len(vals) == 10:
-		remarks = vals[9]
+    info = {
+        'teacher': vals["Name"],
+        'name': vals["Event"],
+        'date': vals["Date of Event /Rehearsal"],
+        'levels': vals["Level Involved"],
+        'location': vals["Venue"],
+        'start_time': vals["Actual Start Time"],
+        'end_time': vals["End Time"],
+        'remarks': vals["Any other remarks / instructions?"],
+        'equipment': ""
+    }
 
-	vals = {
-		'teacher': vals[0],
-		'name': vals[1],
-		'department': vals[2],
-		'date': vals[3],
-		'levels': vals[5],
-		'location': vals[6],
-		'start_time': vals[7],
-		'end_time': vals[8],
-		'remarks': remarks.strip()
-	}
+    # date
+    info['date'] += " "
+    info['date'] += str(date.today().year)
+    info['date'] = datetime.strptime(info['date'], "%b %d %Y").date()
 
-	# date
-	d = vals['date'].split('/')
-	vals['date'] = date(int(d[2]), int(d[1]), int(d[0]))
+    # start and end times
+    for val in ('start_time', 'end_time'):
+        info[val] = datetime.strptime(info[val], "%I:%M %p").time()
 
-	# start and end times
-	for val in ('start_time', 'end_time'):
-		t = vals[val]
-		vals[val] = time(int(t[0:2]), int(t[2:4]))
+    # equipment
+    microphones = vals["Microphones"]
+    microphone_stands = vals["Microphone stands"]
+    rostrum = vals["Rostrum Microphone"]
+    spotlights = vals["Spot Lights for Performance"]
+    projector = vals["Projector"]
 
-	vals['equipment'] = parse_equipment(equipment)
+    if not microphones == "0" and not microphones == "":
+        info['equipment'] += microphones
+        info['equipment'] += " microphones <br>"
+    if not microphone_stands == "0" and not microphone_stands == "":
+        info['equipment'] += microphone_stands
+        info['equipment'] += " microphone stands <br>"
+    if rostrum == "Yes":
+        info['equipment'] += "Rostrum microphones <br>"
+    if spotlights == "Yes":
+        info['equipment'] += "Spotlights <br>"
+    if projector == "Yes":
+        info['equipment'] += "Projector <br>"
 
-	return vals
+    #vals['equipment'] = parse_equipment(equipment)
+
+    return info

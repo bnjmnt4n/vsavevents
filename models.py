@@ -10,7 +10,6 @@ class Event(ndb.Model):
 	teacher = ndb.StringProperty(indexed=False)
 	location = ndb.StringProperty(indexed=False)
 	levels = ndb.StringProperty(indexed=False)
-	department = ndb.StringProperty(indexed=False)
 	equipment = ndb.StringProperty(indexed=False)
 	remarks = ndb.StringProperty(indexed=False)
 
