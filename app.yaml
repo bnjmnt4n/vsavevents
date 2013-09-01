@@ -1,5 +1,5 @@
 application: vsavevents
-version: 2
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -16,7 +16,11 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: .*
+#- url: /users.*
+#  script: users.app
+#  secure: always
+
+- url: /(archives|events.*)?
   script: events.app
   secure: always
 
