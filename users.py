@@ -6,7 +6,7 @@ import jinja2
 from datetime import datetime, timedelta
 from google.appengine.ext import ndb
 
-from utils import user, date
+from utils import user
 from models import User
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -28,7 +28,7 @@ class UsersHandler(webapp2.RequestHandler):
             }))
             return
 
-    	users_query = EVENTS_QUERY.bind(date.getdate())
+    	users_query = User.query().order(User.level, User.name)
         users_list = events_query.fetch(100) # get all users
         
         template = JINJA_ENVIRONMENT.get_template('templates/users.html')
@@ -40,8 +40,8 @@ class UsersHandler(webapp2.RequestHandler):
             'users': users_list
         }))
 
-class ArchivesHandler(webapp2.RequestHandler):
-    def get(self):
+class UserHandler(webapp2.RequestHandler):
+    def get(self, user_name):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
@@ -55,8 +55,7 @@ class ArchivesHandler(webapp2.RequestHandler):
             }))
             return
 
-    	events_query = ARCHIVES_QUERY.bind(date.getdate())
-        event_list = events_query.fetch(10)
+    	show_user = User.query(User.name == user_name).fetch(1)
         
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
@@ -64,11 +63,11 @@ class ArchivesHandler(webapp2.RequestHandler):
             'loginUrl': loginUrl,
             'logoutUrl': logoutUrl,
             'user': curr_user,
-            'events': event_list
+            'show_user': show_user
         }))
 
-class EventHandler(webapp2.RequestHandler):
-    def get(self, key):
+class EditHandler(webapp2.RequestHandler):
+    def post(self, user_name):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
@@ -82,16 +81,19 @@ class EventHandler(webapp2.RequestHandler):
             }))
             return
 
-        event = ndb.Key(urlsafe=key).get()
+        edit_user = User.query(User.name == user_name).fetch(1)
 
-        if event:
-            template = JINJA_ENVIRONMENT.get_template('templates/event.html')
+        if curr_user.level == 1:
+            
+        elif curr_user == edit_user:
+            
+        else:
+            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
-                'title': 'Event: ' + event.name,
+                'title': 'Not Enough Permissions',
                 'loginUrl': loginUrl,
                 'logoutUrl': logoutUrl,
-                'user': curr_user,
-                'event': event
+                'user': curr_user
             }))
 
 app = webapp2.WSGIApplication(
