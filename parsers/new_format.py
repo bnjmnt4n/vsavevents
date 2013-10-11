@@ -14,7 +14,7 @@ def parse(msg):
         logging.error("Message is not a valid work order. Disposing message.")
         return
     
-    info = parse_info(msg)
+    info = parse_info(msg[1])
     logging.info(info)
     
     events_query = Event.query(
