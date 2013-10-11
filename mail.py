@@ -18,9 +18,7 @@ class LogSenderHandler(InboundMailHandler):
         if regex:
             if regex.group(2) in ("vsavict@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com", "wei2912.supp0rt@gmail.com", "webmaster@vs.moe.edu.sg"):
                 if "[WORK ORDER]" in subject:
-                    logging.info("DEBUG 2")
                     for text in html_bodies:
-                        logging.info("DEBUG 3")
                         txt = text[1].decode()
                         logging.info(txt)
                         new_format.parse(txt)
