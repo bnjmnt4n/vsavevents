@@ -8,8 +8,8 @@ from utils import html
 
 def parse(msg):
     msg = html.strip_tags(msg)
-    
-    if msg.find('Dear AV/IT Dept, AV Teacher ICs, AV Club members,') == -1: 
+    msg = msg.split('Dear AV/IT Dept, AV Teacher ICs, AV Club members,')
+    if len(msg) != 2: 
         # decline all messages that aren't work orders
         logging.error("Message is not a valid work order. Disposing message.")
         return
