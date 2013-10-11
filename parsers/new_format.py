@@ -13,10 +13,15 @@ def parse(msg):
         # decline all messages that aren't work orders
         logging.error("Message is not a valid work order. Disposing message.")
         return
-    
-    info = parse_info(msg[1])
+    msg = msg[1].split('-----------------------------------------------------------------------------------------------------------------------')
+    info = parse_info(msg[0])
     logging.info(info)
-    
+    add_info(info)
+    for i in range(1, 2): # there are 2 subsets
+        subset = parse_subset(i+1, info, msg[i])
+        add_info(subset)
+
+def add_info(info):
     events_query = Event.query(
         ndb.AND(Event.name == info['name'], Event.date == info['date']),
         ndb.AND(Event.end_time == info['end_time'], Event.start_time == info['start_time'])
@@ -76,3 +81,52 @@ def parse_info(msg):
     info['equipment'] = ", ".join(equipment)
 
     return info
+
+def parse_subset(i, info, msg):
+    vals = [val for val in msg.split('\n') if val.strip() != '' and val.find(': ') != -1]
+    vals = dict(val.split(": ") for val in vals)
+
+    subset = {
+        'teacher': info['teacher'],
+        'name': info['name'] + " [%d]" % (i),
+        'date': vals["[%d] Date of Event / Rehearsal" % (i)],
+        'levels': info['levels'],
+        'location': vals["[%d] Venue" % (i)],
+        'start_time': vals["[%d] Actual Start Time" % (i)],
+        'end_time': vals["[%d] End Time" % (i)],
+        'remarks': vals["[%d] Actual Event or Rehearsal?" % (i)] + '<br>' + info['remarks'],
+        'equipment': ""
+    }
+
+    # date
+    subset['date'] += " "
+    subset['date'] += str(date.today().year)
+    subset['date'] = datetime.strptime(subset['date'], "%b %d %Y").date()
+
+    # start and end times
+    for val in ('start_time', 'end_time'):
+        subset[val] = datetime.strptime(subset[val], "%I:%M %p").time()
+
+    # equipment
+    microphones = vals["[%d] Microphones" % (i)]
+    microphone_stands = vals["[%d] Microphone stands" % (i)]
+    rostrum = vals["[%d] Rostrum Microphone" % (i)]
+    spotlights = vals["[%d] Spot Lights for Performance" % (i)]
+    projector = vals["[%d] Projector" % (i)]
+
+    equipment = []
+
+    if not microphones == "0" and not microphones == "":
+        equipment.append(microphones + " microphones")
+    if not microphone_stands == "0" and not microphone_stands == "":
+        equipment.append(microphone_stands + " microphone stands")
+    if rostrum == "Yes":
+        equipment.append("Rostrum microphones")
+    if spotlights == "Yes":
+        equipment.append("Spotlights")
+    if projector == "Yes":
+        equipment.append("Projector")
+
+    subset['equipment'] = ", ".join(equipment)
+
+    return subset
