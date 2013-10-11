@@ -4,10 +4,10 @@ from datetime import date, time, datetime
 from models import Event
 from google.appengine.ext import ndb
 
-import re
+from utils import html
 
 def parse(msg):
-    msg = re.sub('<[^<]+?>', '', msg)
+    msg = html.strip_tags(msg)
     
     if msg.find('Dear AV/IT Dept, AV Teacher ICs, AV Club members,') == -1: 
         # decline all messages that aren't work orders
@@ -60,19 +60,19 @@ def parse_info(msg):
     spotlights = vals["Spot Lights for Performance"]
     projector = vals["Projector"]
 
-    if not microphones == "0" and not microphones == "":
-        info['equipment'] += microphones
-        info['equipment'] += " microphones <br>"
-    if not microphone_stands == "0" and not microphone_stands == "":
-        info['equipment'] += microphone_stands
-        info['equipment'] += " microphone stands <br>"
-    if rostrum == "Yes":
-        info['equipment'] += "Rostrum microphones <br>"
-    if spotlights == "Yes":
-        info['equipment'] += "Spotlights <br>"
-    if projector == "Yes":
-        info['equipment'] += "Projector <br>"
+    equipment = []
 
-    #vals['equipment'] = parse_equipment(equipment)
+    if not microphones == "0" and not microphones == "":
+        equipment.append(microphones + " microphones")
+    if not microphone_stands == "0" and not microphone_stands == "":
+        equipment.append(microphone_stands + " microphone stands")
+    if rostrum == "Yes":
+        equipment.append("Rostrum microphones")
+    if spotlights == "Yes":
+        equipment.append("Spotlights")
+    if projector == "Yes":
+        equipment.append("Projector")
+
+    info['equipment'] = ", ".join(equipment)
 
     return info
