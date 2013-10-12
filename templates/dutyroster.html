@@ -1,4 +1,8 @@
 {% extends 'templates/base.html' %}
 {% block content %}
-<iframe src="https://docs.google.com/file/d/0B-CrDgkUXExQMENPQVRWWlZVS0E/preview" width="1024" height="540"></iframe>
+{% if user %}
+  <iframe src="https://docs.google.com/file/d/0B-CrDgkUXExQMENPQVRWWlZVS0E/preview" width="1024" height="540"></iframe>
+{% else %}
+  <p>Please log in.</p>
+{% endif %}
 {% endblock content %}
