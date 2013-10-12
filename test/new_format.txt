@@ -1,79 +1,83 @@
-<p>
-Dear AV/IT Dept, AV Teacher ICs, AV Club members,
-</p>
-<p>
-Jason Lai  submitted a work order on Friday,11 of October-2013, 07:15:09<br>
-</p>
-<p>
-<b>Username: </b>lai_shang-yi_jason_matthew@moe.edu.sg<br>
-<b>Name: </b>Jason Lai <br>
-<b>Department / CCA / Committee: </b>Internal Exam <br>
-</p>
-<p>
-<b>Event: </b>Sec 1-3 SA2 Script Checking <br>
-<b>Actual Event or Rehearsal?: </b>Actual Event<br>
-<b>Venue: </b>Hall and Auditorium <br>
-<b>Level Involved: </b>Sec 1, Sec 2, Sec 3<br>
-<b>Date of Event /Rehearsal: </b>Oct 14<br>
-<b>Actual Start Time: </b>7:50 AM<br>
-<b>End Time: </b>3:05 PM<br>
-</p>
-<p>
-Equipment needed:
-</p>
-<p>
-<b>Microphones: </b>2<br>
-<b>Microphone stands: </b><br>
-<b>Rostrum Microphone: </b>No<br>
-<b>Spot Lights for Performance: </b>No<br>
-<b>Projector: </b>Yes<br>
-<b>Any other remarks / instructions?: </b>Hi David, 
 
-Please help to set up the projectors and microphones for the hall and auditorium on Mon 14 Oct. The auditorium will be used again on 16 Oct for script checking, but not the hall. 
-
-For the hall, the teachers will be controlling their laptops from the front. Please also provide visualisers for both venues in case they need them. Thanks!
-
-Rgds, 
-Jason <br>
-</p>
-<p>
+      <p>
+        Dear AV/IT Dept, AV Teacher ICs, AV Club members,
+      </p>
+      <p>
+        Jason Lai submitted a work order on Friday,11 of October-2013,
+        07:15:09<br>
+      </p>
+      <p>
+        <b>Username: </b><a class="moz-txt-link-abbreviated" href="mailto:lai_shang-yi_jason_matthew@moe.edu.sg">lai_shang-yi_jason_matthew@moe.edu.sg</a><br>
+        <b>Name: </b>Jason Lai <br>
+        <b>Department / CCA / Committee: </b>Internal Exam <br>
+      </p>
+      <p>
+        <b>Event: </b>Sec 1-3 SA2 Script Checking <br>
+        <b>Actual Event or Rehearsal?: </b>Actual Event<br>
+        <b>Venue: </b>Hall and Auditorium <br>
+        <b>Level Involved: </b>Sec 1, Sec 2, Sec 3<br>
+        <b>Date of Event /Rehearsal: </b>Oct 14<br>
+        <b>Actual Start Time: </b>7:50 AM<br>
+        <b>End Time: </b>3:05 PM<br>
+      </p>
+      <p>
+        Equipment needed:
+      </p>
+      <p>
+        <b>Microphones: </b>2<br>
+        <b>Microphone stands: </b><br>
+        <b>Rostrum Microphone: </b>No<br>
+        <b>Spot Lights for Performance: </b>No<br>
+        <b>Projector: </b>Yes<br>
+        <b>Any other remarks / instructions?: </b>Hi David, Please help
+        to set up the projectors and microphones for the hall and
+        auditorium on Mon 14 Oct. The auditorium will be used again on
+        16 Oct for script checking, but not the hall. For the hall, the
+        teachers will be controlling their laptops from the front.
+        Please also provide visualisers for both venues in case they
+        need them. Thanks!
+        Rgds, Jason <br>
+      </p>
+      <p>
 -----------------------------------------------------------------------------------------------------------------------
-</p>
-<p>
-2nd Date/Time/Venue for event (if applicable)
-</p>
-<p>
-<b>[2] Actual Event or Rehearsal?: </b>Actual Event<br>
-<b>[2] Venue: </b>Auditorium <br>
-<b>[2] Date of Event / Rehearsal: </b>Oct 16<br>
-<b>[2] Actual Start Time: </b>7:50 AM<br>
-<b>[2] End Time: </b>12:35 PM<br>
-<b>[2] SAME equipment as main page?: </b>Same Equipment<br>
-<b>[2] Microphones: </b>2<br>
-<b>[2] Microphone stands: </b><br>
-<b>[2] Rostrum Microphone: </b>No<br>
-<b>[2] Spot Lights for Performance: </b>No<br>
-<b>[2] Projector: </b>Yes<br>
-</p>
-<p>
+      </p>
+      <p>
+        2nd Date/Time/Venue for event (if applicable)
+      </p>
+      <p>
+        <b>[2] Actual Event or Rehearsal?: </b>Actual Event<br>
+        <b>[2] Venue: </b>Auditorium <br>
+        <b>[2] Date of Event / Rehearsal: </b>Oct 16<br>
+        <b>[2] Actual Start Time: </b>7:50 AM<br>
+        <b>[2] End Time: </b>12:35 PM<br>
+        <b>[2] SAME equipment as main page?: </b>Same Equipment<br>
+        <b>[2] Microphones: </b>2<br>
+        <b>[2] Microphone stands: </b><br>
+        <b>[2] Rostrum Microphone: </b>No<br>
+        <b>[2] Spot Lights for Performance: </b>No<br>
+        <b>[2] Projector: </b>Yes<br>
+      </p>
+      <p>
 -----------------------------------------------------------------------------------------------------------------------
-</p>
-<p>
-3rd Date/Time/Venue for Event (if applicable)
-</p>
-<p>
-<b>[3] Actual Event or Rehearsal?: </b><br>
-<b>[3] Venue: </b><br>
-<b>[3] Date of Event / Rehearsal: </b><br>
-<b>[3] Actual Start Time: </b><br>
-<b>[3] End Time: </b><br>
-<b>[3] SAME equipment as main page?: </b><br>
-<b>[3] Microphones: </b><br>
-<b>[3] Microphone stands: </b><br>
-<b>[3] Rostrum Microphone: </b><br>
-<b>[3] Spot Lights for Performance: </b><br>
-<b>[3] Projector: </b><br>
-</p>
-<p>
-Regards,<br>
-VS/IT Dept<br>
+      </p>
+      <p>
+        3rd Date/Time/Venue for Event (if applicable)
+      </p>
+      <p>
+        <b>[3] Actual Event or Rehearsal?: </b><br>
+        <b>[3] Venue: </b><br>
+        <b>[3] Date of Event / Rehearsal: </b><br>
+        <b>[3] Actual Start Time: </b><br>
+        <b>[3] End Time: </b><br>
+        <b>[3] SAME equipment as main page?: </b><br>
+        <b>[3] Microphones: </b><br>
+        <b>[3] Microphone stands: </b><br>
+        <b>[3] Rostrum Microphone: </b><br>
+        <b>[3] Spot Lights for Performance: </b><br>
+        <b>[3] Projector: </b><br>
+      </p>
+      <p>
+        Regards,<br>
+        VS/IT Dept<br>
+      </p>
+      <br>
