@@ -23,6 +23,10 @@ handlers:
 - url: /(archives|events.*)?
   script: events.app
   secure: always
+  
+- url: /dutyroster
+  script: dutyroster.app
+  secure: always
 
 inbound_services:
 - mail
