@@ -7,13 +7,21 @@ from google.appengine.ext import ndb
 from utils import html
 
 def parse(msg):
-    msg = html.strip_tags(msg)
+    msg = html.strip_tags(msg).strip().split("\n")
+    for i in range(len(msg)):
+        if msg[i][-1:] == ":":
+            msg[i] = msg[i] + " " # add a space to the colon; dirty hack
+    msg = '\n'.join(msg)
     msg = msg.split('Dear AV/IT Dept, AV Teacher ICs, AV Club members,')
     if len(msg) != 2: 
         # decline all messages that aren't work orders
         logging.error("Message is not a valid work order. Disposing message.")
         return
+    
     msg = msg[1].split('-----------------------------------------------------------------------------------------------------------------------')
+    
+    logging.info(msg[0])
+    
     info = parse_info(msg[0])
     logging.info(info)
     add_info(info)
@@ -36,6 +44,8 @@ def add_info(info):
 def parse_info(msg):
     vals = [val for val in msg.split('\n') if val.strip() != '' and val.find(': ') != -1]
     vals = dict(val.split(": ") for val in vals)
+    
+    # strip all keys
 
     info = {
         'teacher': vals["Name"],
@@ -45,7 +55,7 @@ def parse_info(msg):
         'location': vals["Venue"],
         'start_time': vals["Actual Start Time"],
         'end_time': vals["End Time"],
-        'remarks': vals["Any other remarks / instructions?"],
+        'remarks': msg.split("Any other remarks / instructions?: ")[1].replace("\n", "<br>"),
         'equipment': ""
     }
 
@@ -94,7 +104,7 @@ def parse_subset(i, info, msg):
         'location': vals["[%d] Venue" % (i)],
         'start_time': vals["[%d] Actual Start Time" % (i)],
         'end_time': vals["[%d] End Time" % (i)],
-        'remarks': vals["[%d] Actual Event or Rehearsal?" % (i)] + '<br>' + info['remarks'],
+        'remarks': info['remarks'],
         'equipment': ""
     }
 
