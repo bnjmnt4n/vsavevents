@@ -20,12 +20,8 @@ handlers:
 #  script: users.app
 #  secure: always
 
-- url: /(archives|events.*)?
+- url: /(archives|events.*|dutyroster)?
   script: events.app
-  secure: always
-  
-- url: /dutyroster
-  script: dutyroster.app
   secure: always
 
 - url: /robots\.txt

@@ -97,8 +97,27 @@ class EventHandler(webapp2.RequestHandler):
                 'event': event
             }))
 
+class DutyRosterHandler(webapp2.RequestHandler):
+    def get(self):
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+
+        if curr_user and not user.is_authorized(curr_user):
+            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
+            self.response.out.write(template.render({
+                'title': 'Access Denied',
+                'loginUrl': loginUrl,
+                'logoutUrl': logoutUrl,
+                'user': curr_user
+            }))
+            return
+        
+        template = JINJA_ENVIRONMENT.get_template('templates/dutyroster.html')
+        self.response.out.write(template.render())
+
 app = webapp2.WSGIApplication(
 	[('/', MainHandler),
 	 ('/archives', ArchivesHandler),
-     ('/events/(.*)', EventHandler)],
+     ('/events/(.*)', EventHandler),
+     ('/dutyroster', DutyRosterHandler)],
    debug=True)
