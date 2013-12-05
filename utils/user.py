@@ -12,15 +12,9 @@ def get_user():
             user = User(name=email, email=email, level=0)
             if users.is_current_user_admin():
                 user.level = 2
-            user.put()
         return user
 
 def create_login_urls(path):
     loginUrl = users.create_login_url(path)
     logoutUrl = users.create_logout_url(path)
     return loginUrl, logoutUrl
-    
-def is_authorized(user):
-    if user.level > 0:
-        return True
-    return False

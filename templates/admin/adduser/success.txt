@@ -1,0 +1,7 @@
+Request successful!
+
+Added user:
+
+Name: {{ name }}
+Email: {{ email }}
+Level: {{ level }}

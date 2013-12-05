@@ -21,7 +21,7 @@ class MainHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and not user.is_authorized(curr_user):
+        if curr_user and curr_user.level < 1:
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
@@ -48,7 +48,7 @@ class ArchivesHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and not user.is_authorized(curr_user):
+        if curr_user and curr_user.level < 1:
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
@@ -75,7 +75,7 @@ class EventHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and not user.is_authorized(curr_user):
+        if curr_user and curr_user.level < 1:
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
@@ -102,7 +102,7 @@ class DutyRosterHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and not user.is_authorized(curr_user):
+        if curr_user and curr_user.level < 1:
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
@@ -115,9 +115,9 @@ class DutyRosterHandler(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('templates/dutyroster.html')
         self.response.out.write(template.render())
 
-app = webapp2.WSGIApplication(
-	[('/', MainHandler),
-	 ('/archives', ArchivesHandler),
-     ('/events/(.*)', EventHandler),
-     ('/dutyroster', DutyRosterHandler)],
-   debug=True)
+app = webapp2.WSGIApplication([
+    ('/', MainHandler),
+	('/archives', ArchivesHandler),
+    ('/events/(.*)', EventHandler),
+    ('/dutyroster', DutyRosterHandler)
+], debug=True)

@@ -1,0 +1,5 @@
+User already exists:
+
+Name: {{ name }}
+Email: {{ email }}
+Level: {{ level }}

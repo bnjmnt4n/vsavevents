@@ -12,17 +12,17 @@ handlers:
 - url: /res
   static_dir: res
 
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
-
-#- url: /users.*
-#  script: users.app
-#  secure: always
+- url: /admin/.+
+  script: admin.app
+  secure: always
 
 - url: /(archives|events.*|dutyroster)?
   script: events.app
   secure: always
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
 
 - url: /robots\.txt
   static_files: robots.txt
