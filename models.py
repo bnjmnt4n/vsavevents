@@ -14,4 +14,7 @@ class Event(ndb.Model):
 
 class User(ndb.Model):
 	name = ndb.StringProperty()
+	email = ndb.StringProperty()
 	level = ndb.IntegerProperty(indexed=False)
+	# level 1 - mortal
+	# level 2 - immortal admin

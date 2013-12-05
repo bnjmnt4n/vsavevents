@@ -6,21 +6,13 @@ def get_user():
     current_user = users.get_current_user()
     if current_user:
         email = current_user.email()
-
-        user = User.get_or_insert(email)
-        user.user = current_user
-        if not user.name:
-            user.name = email
-        if not user.level:
+        q = User.query(User.email == email)
+        user = q.get()
+        if not user:
+            user = User(name=email, email=email, level=0)
             if users.is_current_user_admin():
                 user.level = 2
-            else:
-                user.level = 0
-
-        user.put()
-
-        print(user)
-
+            user.put()
         return user
 
 def create_login_urls(path):
