@@ -21,13 +21,18 @@ class MainHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1:
+        if curr_user and curr_user.level < 1: # unauthorized
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
-                'loginUrl': loginUrl,
                 'logoutUrl': logoutUrl,
                 'user': curr_user
+            }))
+            return
+        elif not curr_user: # logged out
+            template = JINJA_ENVIRONMENT.get_template('templates/loggedout.html')
+            self.response.out.write(template.render({
+                'loginUrl': loginUrl,
             }))
             return
 
@@ -37,7 +42,6 @@ class MainHandler(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Events',
-            'loginUrl': loginUrl,
             'logoutUrl': logoutUrl,
             'user': curr_user,
             'events': event_list
@@ -48,14 +52,8 @@ class ArchivesHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1:
-            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render({
-                'title': 'Access Denied',
-                'loginUrl': loginUrl,
-                'logoutUrl': logoutUrl,
-                'user': curr_user
-            }))
+        if curr_user and curr_user.level < 1 or not curr_user:
+            self.redirect("/")
             return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
@@ -64,7 +62,6 @@ class ArchivesHandler(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Archives',
-            'loginUrl': loginUrl,
             'logoutUrl': logoutUrl,
             'user': curr_user,
             'events': event_list
@@ -75,14 +72,8 @@ class EventHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1:
-            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render({
-                'title': 'Access Denied',
-                'loginUrl': loginUrl,
-                'logoutUrl': logoutUrl,
-                'user': curr_user
-            }))
+        if curr_user and curr_user.level < 1 or not curr_user:
+            self.redirect("/")
             return
 
         event = ndb.Key(urlsafe=key).get()
@@ -91,7 +82,6 @@ class EventHandler(webapp2.RequestHandler):
             template = JINJA_ENVIRONMENT.get_template('templates/event.html')
             self.response.out.write(template.render({
                 'title': 'Event: ' + event.name,
-                'loginUrl': loginUrl,
                 'logoutUrl': logoutUrl,
                 'user': curr_user,
                 'event': event
@@ -102,18 +92,16 @@ class DutyRosterHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1:
-            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render({
-                'title': 'Access Denied',
-                'loginUrl': loginUrl,
-                'logoutUrl': logoutUrl,
-                'user': curr_user
-            }))
+        if curr_user and curr_user.level < 1 or not curr_user:
+            self.redirect("/")
             return
         
         template = JINJA_ENVIRONMENT.get_template('templates/dutyroster.html')
-        self.response.out.write(template.render())
+        self.response.out.write(template.render({
+            'title': 'Duty Roster',
+            'logoutUrl': logoutUrl,
+            'user': curr_user
+        }))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

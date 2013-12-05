@@ -1,5 +1,24 @@
-{% extends 'templates/base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Home - vsavevents</title>
+  <link rel="stylesheet" href="/res/all.css">
+</head>
+<body>
+<header class="cf">
+  <h1><a href="/">vsavevents</a></h1>
+  <!--img src="res/vsav.jpg"-->
+  <nav>
+    <ul class="cf">
+        <li><a href="{{ logoutUrl }}">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+<div id="main">
+<h1>Access Denied</h1>
+
 <p>Sorry, you are not authorized to view the following content.</p>
 <p>If you wish to gain access, please send an email to <a href="mailto:weien1292@gmail.com">weien1292@gmail.com</a> or <a href="mailto:demoneaux@gmail.com">demoneaux@gmail.com</a>.</p>
-{% endblock content %}
+</div>
+</body>
+</html>

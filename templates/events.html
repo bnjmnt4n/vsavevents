@@ -1,31 +1,27 @@
 {% extends 'templates/base.html' %}
 {% block content %}
-{% if user %}
-  {% if events %}
-  <table>
-  	<tr>
-  	  <th>Date</th>
-  	  <th>Event</th>
-  	  <th>Location</th>
-  	  <th>Levels</th>
-  	  <th>Start</th>
-  	  <th>End</th>
-  	</tr>
-    {% for event in events %}
-  	<tr>
-  	  <td>{{ event.date }}</td>
-  	  <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
-  	  <td>{{ event.location }}</td>
-  	  <td>{{ event.levels }}</td>
-  	  <td>{{ event.start_time.strftime('%H:%M') }}</td>
-  	  <td>{{ event.end_time.strftime('%H:%M') }}</td>
-  	</tr>
-    {% endfor %}
-  </table>
-  {% else %}
-    <p>There are no events.</p>
-  {% endif %}
+{% if events %}
+<table>
+	<tr>
+	  <th>Date</th>
+	  <th>Event</th>
+	  <th>Location</th>
+	  <th>Levels</th>
+	  <th>Start</th>
+	  <th>End</th>
+	</tr>
+  {% for event in events %}
+	<tr>
+	  <td>{{ event.date }}</td>
+	  <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
+	  <td>{{ event.location }}</td>
+	  <td>{{ event.levels }}</td>
+	  <td>{{ event.start_time.strftime('%H:%M') }}</td>
+	  <td>{{ event.end_time.strftime('%H:%M') }}</td>
+	</tr>
+  {% endfor %}
+</table>
 {% else %}
-  <p>Please log in.</p>
+  <p>There are no events.</p>
 {% endif %}
 {% endblock content %}

@@ -10,27 +10,19 @@
   <!--img src="res/vsav.jpg"-->
   <nav>
     <ul class="cf">
-      <li><a href="/archives">Archives</a></li>
-      <li><a href="/dutyroster">Duty Roster</a></li>
-      <li>
-        {% if user %}
-        <a href="{{ logoutUrl }}">Logout</a>
-        {% else %}
-        <a href="{{ loginUrl }}">Login</a>
-        {% endif %}
-      </li>
+        <li><a href="/archives">Archives</a></li>
+        <li><a href="/dutyroster">Duty Roster</a></li>
+        <li><a href="{{ logoutUrl }}">Logout</a></li>
     </ul>
   </nav>
 </header>
 <div id="main">
-{% if user %}
-  {% if user.name %}
-    <p>Hello, {{ user.name }} ({{ user.email }})!<p>
-  {% else %}
-    <p>Hello, {{ user.email }}!</p>
-  {% endif %}
-  <h2>{{ title }}</h2>
+{% if user.name %}
+  <p>Hello, {{ user.name }} ({{ user.email }})!<p>
+{% else %}
+  <p>Hello, {{ user.email }}!</p>
 {% endif %}
+<h2>{{ title }}</h2>
 {% block content %}
   Hi!
 {% endblock content %}
