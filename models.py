@@ -6,7 +6,6 @@ class Event(ndb.Model):
 	start_time = ndb.TimeProperty()
 	end_time = ndb.TimeProperty()
 	
-	# variables that shouldn't be indexed
 	teacher = ndb.StringProperty(indexed=False)
 	location = ndb.StringProperty(indexed=False)
 	levels = ndb.StringProperty(indexed=False)
@@ -14,8 +13,5 @@ class Event(ndb.Model):
 	remarks = ndb.StringProperty(indexed=False)
 
 class User(ndb.Model):
-	user = ndb.UserProperty()
 	name = ndb.StringProperty()
-	email = ndb.StringProperty()
-	level = ndb.IntegerProperty() # 1 for admin, 0 for normal.
-
+	level = ndb.IntegerProperty(indexed=False)
