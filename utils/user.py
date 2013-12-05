@@ -9,7 +9,7 @@ def get_user():
         q = User.query(User.email == email)
         user = q.get()
         if not user:
-            user = User(name=email, email=email, level=0)
+            user = User(email=email, level=0)
             if users.is_current_user_admin():
                 user.level = 2
         return user

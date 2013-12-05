@@ -24,7 +24,11 @@
 </header>
 <div id="main">
 {% if user %}
-  <p>Hello, {{ user.name }}!<p>
+  {% if user.name %}
+    <p>Hello, {{ user.name }} ({{ user.email }})!<p>
+  {% else %}
+    <p>Hello, {{ user.email }}!</p>
+  {% endif %}
   <h2>{{ title }}</h2>
 {% endif %}
 {% block content %}
