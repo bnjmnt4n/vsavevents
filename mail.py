@@ -14,10 +14,9 @@ class LogSenderHandler(InboundMailHandler):
         text_bodies = mail_message.bodies('text/plain')
         html_bodies = mail_message.bodies('text/html')
 
-        regex = re.match("([\w\s]*<)?([\w\d\.@]*)>?", sender)
+        regex = re.match("[\w\d\.]+@[\w\d]+\.[\w\d]+", sender)
         if regex:
-            email = regex.group(2)
-            if email in ("vsavict@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com", "wei2912.supp0rt@gmail.com", "webmaster@vs.moe.edu.sg"):
+            if sender in ("vsavict@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com", "wei2912.supp0rt@gmail.com", "webmaster@vs.moe.edu.sg"):
                 if "[WORK ORDER]" in subject:
                     for text in html_bodies:
                         txt = text[1].decode()
