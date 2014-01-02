@@ -1,5 +1,6 @@
 import logging
 from datetime import date, time, datetime
+import dateutil.parser
 
 from models import Event
 from google.appengine.ext import ndb
@@ -61,9 +62,7 @@ def parse_info(msg):
     }
 
     # date
-    info['date'] += " "
-    info['date'] += str(date.today().year)
-    info['date'] = datetime.strptime(info['date'], "%b %d %Y").date()
+    info['date'] = dateutil.parser.parse(info['date']).date()
 
     # start and end times
     for val in ('start_time', 'end_time'):
