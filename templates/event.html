@@ -7,8 +7,7 @@
     <tr><th>Event</th><td>{{ event.name }}</td></tr>
     <tr><th>Location</th><td>{{ event.location }}</td></tr>
     <tr><th>Levels</th><td>{{ event.levels }}</td></tr>
-    <tr><th>Start</th><td>{{ event.start_time }}</td></tr>
-    <tr><th>End</th><td>{{ event.end_time }}</td></tr>
+    <tr><th>Time</th><td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td></tr>
     <tr><th>Equipment</th><td>{{ event.equipment }}</td></tr>
     <tr><th>Remarks</th><td>{{ event.remarks }}</td></tr>
 </table>

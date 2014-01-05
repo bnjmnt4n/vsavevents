@@ -7,8 +7,7 @@
 	  <th>Event</th>
 	  <th>Location</th>
 	  <th>Levels</th>
-	  <th>Start</th>
-	  <th>End</th>
+	  <th>Time</th>
 	</tr>
   {% for event in events %}
 	<tr>
@@ -16,8 +15,7 @@
 	  <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
 	  <td>{{ event.location }}</td>
 	  <td>{{ event.levels }}</td>
-	  <td>{{ event.start_time.strftime('%H:%M') }}</td>
-	  <td>{{ event.end_time.strftime('%H:%M') }}</td>
+	  <td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td>
 	</tr>
   {% endfor %}
 </table>
