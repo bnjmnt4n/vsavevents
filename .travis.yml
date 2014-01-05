@@ -1,15 +1,17 @@
+# Travis CI Automated Builds
 language: python
 python:
   - "2.7"
 
 env:
   global:
-  - secure: "NVqxwNR43SrlUBY5+M04WTO4Pt1aXIIdz7IhcUgbeHTcSUG/UhJVbhEmsBtIwSEPaBz8q22uQVbutA2jeNetAqxK8wn8OJBqhd4162KWu9UONLXI1NEpFQkgmD/z7kK8sEKnEZ8WnA0lKdqmdcwKeuIQdaAAvcvK6hSeFTLHs2c="
-  - secure: "eGilp14pi0EHYvOeHWvhaWrVLmlnZhgn7PFo3dh0zLGPF+ERnxwhKG62ESjv1/KLR+mSNwd/MKRutSs8Xcgjk5exKBcroIUKqDbAK1S46vcKGMdQHRhpy70GaMODRj5P4k5WoCxuNa2g1++KipZrU1B1N0Q6GE2RhYvDCKAgo48="
-  # please regenerate these with your token, d10
+    - secure: "NVqxwNR43SrlUBY5+M04WTO4Pt1aXIIdz7IhcUgbeHTcSUG/UhJVbhEmsBtIwSEPaBz8q22uQVbutA2jeNetAqxK8wn8OJBqhd4162KWu9UONLXI1NEpFQkgmD/z7kK8sEKnEZ8WnA0lKdqmdcwKeuIQdaAAvcvK6hSeFTLHs2c="
+    - secure: "eGilp14pi0EHYvOeHWvhaWrVLmlnZhgn7PFo3dh0zLGPF+ERnxwhKG62ESjv1/KLR+mSNwd/MKRutSs8Xcgjk5exKBcroIUKqDbAK1S46vcKGMdQHRhpy70GaMODRj5P4k5WoCxuNa2g1++KipZrU1B1N0Q6GE2RhYvDCKAgo48="
+
 
 install: true
-script: true	#script: test/test.py
+script: true
+# script: test/test.py
 
 branches:
   only:

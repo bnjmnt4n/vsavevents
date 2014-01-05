@@ -9,6 +9,7 @@ header {
 	border-bottom: 1px solid black;
 	font-weight: 300;
 	padding: 20px 5%;
+	max-width: 1000px;
 }
 
 header a, header a:visited {
@@ -64,6 +65,7 @@ th, td {
 
 #main {
 	padding: 20px 5%;
+	max-width: 1000px;
 }
 
 .cf:before,
