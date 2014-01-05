@@ -8,10 +8,14 @@ env:
   - secure: "eGilp14pi0EHYvOeHWvhaWrVLmlnZhgn7PFo3dh0zLGPF+ERnxwhKG62ESjv1/KLR+mSNwd/MKRutSs8Xcgjk5exKBcroIUKqDbAK1S46vcKGMdQHRhpy70GaMODRj5P4k5WoCxuNa2g1++KipZrU1B1N0Q6GE2RhYvDCKAgo48="
   # please regenerate these with your token, d10
 
-#script: test/test.py
+install: true
+script: true	#script: test/test.py
+
+branches:
+  only:
+    - master
 
 after_success:
   - echo "machine code.google.com login $USER password $PASS" > ~/.netrc
-
   - git remote add appengine https://code.google.com/id/4LPvhFZaXYE/
   - git push appengine master
