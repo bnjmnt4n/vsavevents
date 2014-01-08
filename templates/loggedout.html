@@ -1,20 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <title>Home - vsavevents</title>
-  <link rel="stylesheet" href="/res/all.css">
-</head>
-<body>
-<header>
-  <h1><a href="/">vsavevents</a></h1>
+{% extends 'templates/base.html' %}
+{% block nav %}
   <nav>
     <ul class="cf">
         <li><a href="{{ loginUrl }}">Login</a></li>
     </ul>
   </nav>
-</header>
-<div id="main">
+{% endblock nav %}
+
+{% block content %}
 <p>Please log in.</p>
-</div>
-</body>
-</html>
+{% endblock content %}

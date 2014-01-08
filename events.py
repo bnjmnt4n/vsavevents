@@ -32,7 +32,9 @@ class MainHandler(webapp2.RequestHandler):
         elif not curr_user: # logged out
             template = JINJA_ENVIRONMENT.get_template('templates/loggedout.html')
             self.response.out.write(template.render({
+                'title': 'Home',
                 'loginUrl': loginUrl,
+                'user': None
             }))
             return
 
