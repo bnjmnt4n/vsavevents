@@ -1,4 +1,4 @@
-# [vsavevents](https://vsavevents.appspot.com) [![Build Status](https://travis-ci.org/d10/vsavevents.png)](https://travis-ci.org/d10/vsavevents)
+# [vsavevents](https://vsavevents.appspot.com) [![Build Status](http://b.adge.me/travis/d10/vsavevents.svg)](https://travis-ci.org/d10/vsavevents)
 
 [vsavevents](https://vsavevents.appspot.com) is a work order parser and displayer
 
