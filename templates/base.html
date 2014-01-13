@@ -6,20 +6,23 @@
   <link rel="stylesheet" href="/res/all.css">
 </head>
 <body>
-<header>
-  <h1><a href="/">vsavevents</a></h1>
-{% block nav %}
-  <nav>
-    <ul class="cf">
-        <li><a href="/archives">Archives</a></li>
-        <li><a href="/dutyroster">Duty Roster</a></li>
-        <li><a href="{{ logoutUrl }}">Logout</a></li>
-    </ul>
-  </nav>
-{% endblock nav %}
-</header>
+<div id="header-container">
+  <header>
+    <h1><a href="/">vsavevents</a></h1>
+  {% block nav %}
+    <nav>
+      <ul class="cf">
+          <li><a href="/archives">Archives</a></li>
+          <li><a href="/dutyroster">Duty Roster</a></li>
+          <li><a href="{{ logoutUrl }}">Logout</a></li>
+      </ul>
+    </nav>
+  {% endblock nav %}
+  </header>
+</div>
 <div id="main">
-{% if user != None %}
+<article>
+{% if user and user.name %}
   <p>Hello, {{ user.name }} ({{ user.email }})!<p>
 {% else %}
   <p>Hello, {{ user.email }}!</p>
@@ -28,6 +31,12 @@
 {% block content %}
   Hi!
 {% endblock content %}
+</article>
+</div>
+<div id="footer-container">
+  <footer>
+    &copy; 2013-2014 by Benjamin Tan and Ng Wei En
+  </footer>
 </div>
 </body>
 </html>
