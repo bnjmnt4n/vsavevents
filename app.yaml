@@ -9,8 +9,8 @@ handlers:
   script: mail.app
   login: admin
 
-- url: /res
-  static_dir: res
+- url: /public
+  static_dir: public
 
 - url: /admin/.+
   script: admin.app
