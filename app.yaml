@@ -9,8 +9,8 @@ handlers:
   script: mail.app
   login: admin
 
-- url: /public
-  static_dir: public
+- url: /resources
+  static_dir: public/resources
 
 - url: /admin/.+
   script: admin.app
@@ -21,12 +21,12 @@ handlers:
   secure: always
 
 - url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+  static_files: public/favicon.ico
+  upload: public\/favicon\.ico
 
 - url: /robots\.txt
-  static_files: robots.txt
-  upload: robots\.txt
+  static_files: public/robots.txt
+  upload: public\/robots\.txt
 
 
 inbound_services:
