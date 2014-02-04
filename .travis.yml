@@ -20,4 +20,4 @@ branches:
 after_success:
   - echo "machine code.google.com login $USER password $PASS" > ~/.netrc
   - git remote add appengine https://code.google.com/id/4LPvhFZaXYE/
-  - git push appengine master
+  - git push -f appengine master
