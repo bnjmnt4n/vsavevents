@@ -2,7 +2,7 @@
 {% block content %}
 {% if event %}
 <table>
-    <tr><th>Date</th><td>{{ event.date }}</td></tr>
+    <tr><th>Date</th><td>{{ event.date.strftime('%d %B %Y (%A)') }}</td></tr>
     <tr><th>Teacher</th><td>{{ event.teacher }}</td></tr>
     <tr><th>Event</th><td>{{ event.name }}</td></tr>
     <tr><th>Location</th><td>{{ event.location }}</td></tr>
