@@ -107,7 +107,7 @@ class DutyRosterHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-	('/archives', ArchivesHandler),
+    ('/archives', ArchivesHandler),
     ('/events/(.*)', EventHandler),
     ('/dutyroster', DutyRosterHandler)
 ], debug=True)
