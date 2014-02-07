@@ -1,8 +1,8 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 {% if events %}
-<form method="post" action="/{{ url }}">
-  <input type="text" name="limit" maxlength="10" placeholder="Limit number of events">
+<form method="get" action="/{{ url }}">
+  <input type="number" name="limit" maxlength="10" placeholder="Limit number of events">
   <input type="submit">
 </form>
 <table>
