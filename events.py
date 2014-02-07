@@ -21,7 +21,8 @@ class MainHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1: # unauthorized
+        if curr_user and curr_user.level < 1:
+        # unauthorized
             template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
             self.response.out.write(template.render({
                 'title': 'Access Denied',
@@ -29,7 +30,8 @@ class MainHandler(webapp2.RequestHandler):
                 'user': curr_user
             }))
             return
-        elif not curr_user: # logged out
+        elif not curr_user:
+        # logged out
             template = JINJA_ENVIRONMENT.get_template('templates/loggedout.html')
             self.response.out.write(template.render({
                 'title': 'Home',
@@ -39,8 +41,8 @@ class MainHandler(webapp2.RequestHandler):
             return
 
     	events_query = EVENTS_QUERY.bind(date.getdate())
-        event_list = events_query.fetch(20)
-        
+        event_list = events_query.fetch(events_query.count())
+
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Events',
@@ -59,8 +61,8 @@ class ArchivesHandler(webapp2.RequestHandler):
             return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
-        event_list = events_query.fetch(10)
-        
+        event_list = events_query.fetch(events_query.count())
+
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
             'title': 'Archives',
@@ -97,7 +99,7 @@ class DutyRosterHandler(webapp2.RequestHandler):
         if curr_user and curr_user.level < 1 or not curr_user:
             self.redirect("/")
             return
-        
+
         template = JINJA_ENVIRONMENT.get_template('templates/dutyroster.html')
         self.response.out.write(template.render({
             'title': 'Duty Roster',
