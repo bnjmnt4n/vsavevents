@@ -1,22 +1,26 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 {% if events %}
+<form method="post" action="/{{ url }}">
+  <input type="text" name="limit" maxlength="10" placeholder="Limit number of events">
+  <input type="submit">
+</form>
 <table>
-	<tr>
-	  <th>Date</th>
-	  <th>Event</th>
-	  <th>Location</th>
-	  <th>Levels</th>
-	  <th>Time</th>
-	</tr>
+  <tr>
+    <th>Date</th>
+    <th>Event</th>
+    <th>Location</th>
+    <th>Levels</th>
+    <th>Time</th>
+  </tr>
   {% for event in events %}
-	<tr>
-	  <td>{{ event.date.strftime('%d %B, %A') }}</td>
-	  <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
-	  <td>{{ event.location }}</td>
-	  <td>{{ event.levels }}</td>
-	  <td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td>
-	</tr>
+  <tr>
+    <td>{{ event.date.strftime('%d %B, %A') }}</td>
+    <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
+    <td>{{ event.location }}</td>
+    <td>{{ event.levels }}</td>
+    <td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td>
+  </tr>
   {% endfor %}
 </table>
 {% else %}
