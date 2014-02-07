@@ -47,7 +47,7 @@ class MainHandler(webapp2.RequestHandler):
         try:
             limit = int(limit)
         except:
-            limit = events_query.count()
+            limit = 20
 
         event_list = events_query.fetch(limit)
 
@@ -74,7 +74,7 @@ class ArchivesHandler(webapp2.RequestHandler):
         try:
             limit = int(limit)
         except:
-            limit = events_query.count()
+            limit = 20
 
         event_list = events_query.fetch(limit)
 
