@@ -23,10 +23,13 @@
 </div>
 <div id="main">
 <article>
-{% if user and user.name %}
-  <p>Hello, {{ user.name }} ({{ user.email }})!<p>
+{% if user %}
+  {% if user.name %}
+    <p>Hello, {{ user.name }} ({{ user.email }})!<p>
+  {% else %}
+    <p>Hello, {{ user.email }}!</p>
 {% else %}
-  <p>Hello, {{ user.email }}!</p>
+  <p>Hello!</p>
 {% endif %}
 <h2>{{ title }}</h2>
 {% block content %}
