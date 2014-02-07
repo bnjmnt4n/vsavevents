@@ -40,8 +40,15 @@ class MainHandler(webapp2.RequestHandler):
             }))
             return
 
+        limit = self.request.get('limit')
+
+        try:
+            limit = int(limit)
+        except:
+            limit = events_query.count()
+
     	events_query = EVENTS_QUERY.bind(date.getdate())
-        event_list = events_query.fetch(events_query.count())
+        event_list = events_query.fetch(limit)
 
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
@@ -60,8 +67,15 @@ class ArchivesHandler(webapp2.RequestHandler):
             self.redirect("/")
             return
 
+        limit = self.request.get('limit')
+
+        try:
+            limit = int(limit)
+        except:
+            limit = events_query.count()
+
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
-        event_list = events_query.fetch(events_query.count())
+        event_list = events_query.fetch(limit)
 
         template = JINJA_ENVIRONMENT.get_template('templates/events.html')
         self.response.out.write(template.render({
