@@ -110,6 +110,7 @@ th, td {
 #main article {
 	padding: 20px 5%;
 	max-width: 960px;
+	margin: 0 auto;
 }
 
 .cf:before,
