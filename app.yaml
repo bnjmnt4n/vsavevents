@@ -12,13 +12,19 @@ handlers:
 - url: /resources
   static_dir: public/resources
 
-- url: /admin/.+
-  script: admin.app
+- url: /
+  script: main.app
   secure: always
 
-- url: /(archives|events.*|dutyroster)?
+- url: /admin.*
+  script: admin.app
+  secure: always
+  login: admin
+
+- url: /(archives|events.*|dutyroster)
   script: events.app
   secure: always
+  login: required
 
 - url: /favicon\.ico
   static_files: public/favicon.ico

@@ -16,38 +16,29 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 EVENTS_QUERY = Event.gql("WHERE date >= DATE(:1) ORDER BY date ASC, start_time ASC, end_time ASC")
 ARCHIVES_QUERY = Event.gql("WHERE date < DATE(:1) ORDER BY date DESC, start_time ASC, end_time ASC")
 
-class MainHandler(webapp2.RequestHandler):
+def get_limit(request, default):
+    limit = request.get('limit')
+    try:
+        limit = int(limit)
+        return limit
+    except:
+        return default
+
+def handle_error(response, status, message):
+    response.write("<html><head><title>%s</title></head><body><h1>%s</h1></body></html>" % (message, message))
+    response.set_status(status)
+
+class EventsHandler(webapp2.RequestHandler):
     def get(self):
-    	curr_user = user.get_user()
+        curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1:
-        # unauthorized
-            template = JINJA_ENVIRONMENT.get_template('templates/forbidden.html')
-            self.response.out.write(template.render({
-                'title': 'Access Denied',
-                'logoutUrl': logoutUrl,
-                'url': '',
-                'user': curr_user
-            }))
-            return
-        elif not curr_user:
-        # logged out
-            template = JINJA_ENVIRONMENT.get_template('templates/loggedout.html')
-            self.response.out.write(template.render({
-                'title': 'Home',
-                'loginUrl': loginUrl,
-                'user': None
-            }))
+        if curr_user.level < 1:
+            handle_error(self.response, 403, "403 - Forbidden")
             return
 
     	events_query = EVENTS_QUERY.bind(date.getdate())
-
-        limit = self.request.get('limit')
-        try:
-            limit = int(limit)
-        except:
-            limit = 20
+        limit = get_limit(self.request, 20)
 
         event_list = events_query.fetch(limit)
 
@@ -64,17 +55,12 @@ class ArchivesHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1 or not curr_user:
-            self.redirect("/")
+        if curr_user.level < 1:
+            handle_error(self.response, 403, "403 - Forbidden")
             return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
-
-        limit = self.request.get('limit')
-        try:
-            limit = int(limit)
-        except:
-            limit = 20
+        limit = get_limit(self.request, 20)
 
         event_list = events_query.fetch(limit)
 
@@ -92,13 +78,13 @@ class EventHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1 or not curr_user:
-            self.redirect("/")
+        if curr_user.level < 1:
+            handle_error(self.response, 403, "403 - Forbidden")
             return
 
-        event = ndb.Key(urlsafe=key).get()
+        try:
+            event = ndb.Key(urlsafe=key).get()
 
-        if event:
             template = JINJA_ENVIRONMENT.get_template('templates/event.html')
             self.response.out.write(template.render({
                 'title': 'Event: ' + event.name,
@@ -106,15 +92,19 @@ class EventHandler(webapp2.RequestHandler):
                 'user': curr_user,
                 'event': event
             }))
+        except:
+            handle_error(self.response, 404, "404 - Not found")
 
 class DutyRosterHandler(webapp2.RequestHandler):
     def get(self):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        if curr_user and curr_user.level < 1 or not curr_user:
-            self.redirect("/")
+        if curr_user.level < 1:
+            handle_error(self.response, 403, "403 - Forbidden")
             return
+
+        event = ndb.Key
 
         template = JINJA_ENVIRONMENT.get_template('templates/dutyroster.html')
         self.response.out.write(template.render({
@@ -124,8 +114,8 @@ class DutyRosterHandler(webapp2.RequestHandler):
         }))
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
+    ('/events', EventsHandler),
     ('/archives', ArchivesHandler),
-    ('/events/(.*)', EventHandler),
+    ('/events/(.+)', EventHandler),
     ('/dutyroster', DutyRosterHandler)
 ], debug=True)
