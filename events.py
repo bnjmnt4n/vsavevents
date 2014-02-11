@@ -68,7 +68,6 @@ class ArchivesHandler(webapp2.RequestHandler):
         self.response.out.write(template.render({
             'title': 'Archives',
             'logoutUrl': logoutUrl,
-            'url': 'archives',
             'user': curr_user,
             'events': event_list
         }))

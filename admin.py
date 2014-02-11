@@ -22,7 +22,6 @@ class Admin_Console(webapp2.RequestHandler):
         self.response.out.write(template.render({
             'title': 'Admin Console',
             'logoutUrl': logoutUrl,
-            'url': 'admin',
             'user': curr_user
         }))
 
