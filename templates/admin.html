@@ -1,4 +1,22 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 <p>Welcome to the admin console!</p>
+
+<h1>Add User</h1>
+
+<form action="/admin/adduser" method="get">
+	<p>Name: <input type="text" name="name" /></p>
+	<p>Email: <input type="text" name="email" /></p>
+	<p>Level: <input type="text" name="level" /></p>
+
+	<input type="submit" name="adduser" value="Add User" />
+</form>
+
+<h1>Rm User</h1>
+
+<form action="/admin/rmuser" method="get">
+	<p>Email: <input type="text" name="email" /></p>
+
+	<input type="submit" name="rmuser" value="Rm User" />
+</form>
 {% endblock content %}
