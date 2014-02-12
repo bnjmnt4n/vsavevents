@@ -7,7 +7,7 @@ from google.appengine.ext import ndb
 from utils import html
 
 def parse(msg):
-    msg = html.stripTags(msg).split("\n")
+    msg = html.strip_tags(msg).split("\n")
     msg = [i.strip() for i in msg]
     for i in range(len(msg)):
         if msg[i][-1:] == ":":

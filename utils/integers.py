@@ -1,4 +1,4 @@
-def toInteger(string, default):
+def to_integer(string, default):
 	limit = string
 
 	try:

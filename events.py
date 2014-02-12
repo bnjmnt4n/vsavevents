@@ -17,15 +17,15 @@ ARCHIVES_QUERY = Event.gql("WHERE date < DATE(:1) ORDER BY date DESC, start_time
 
 class EventsHandler(webapp2.RequestHandler):
     def get(self):
-        curr_user = user.getUser()
-        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if curr_user.level < 1:
-            html.handleError(self.response, 403, "403 - Forbidden")
+            html.handle_error(self.response, 403, "403 - Forbidden")
             return
 
-    	events_query = EVENTS_QUERY.bind(date.getdate())
-        limit = integers.toInteger(self.request.get('limit'), 20)
+    	events_query = EVENTS_QUERY.bind(date.get_date())
+        limit = integers.to_integer(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
 
@@ -40,15 +40,15 @@ class EventsHandler(webapp2.RequestHandler):
 
 class ArchivesHandler(webapp2.RequestHandler):
     def get(self):
-    	curr_user = user.getUser()
-        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
+    	curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if curr_user.level < 1:
-            html.handleError(self.response, 403, "403 - Forbidden")
+            html.handle_error(self.response, 403, "403 - Forbidden")
             return
 
-    	events_query = ARCHIVES_QUERY.bind(date.getdate())
-        limit = integers.toInteger(self.request.get('limit'), 20)
+    	events_query = ARCHIVES_QUERY.bind(date.get_date())
+        limit = integers.to_integer(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
 
@@ -63,11 +63,11 @@ class ArchivesHandler(webapp2.RequestHandler):
 
 class EventHandler(webapp2.RequestHandler):
     def get(self, key):
-        curr_user = user.getUser()
-        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if curr_user.level < 1:
-            html.handleError(self.response, 403, "403 - Forbidden")
+            html.handle_error(self.response, 403, "403 - Forbidden")
             return
 
         try:
@@ -81,15 +81,15 @@ class EventHandler(webapp2.RequestHandler):
                 'event': event
             }))
         except:
-            html.handleError(self.response, 404, "404 - Not found")
+            html.handle_error(self.response, 404, "404 - Not found")
 
 class DutyRosterHandler(webapp2.RequestHandler):
     def get(self):
-        curr_user = user.getUser()
-        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if curr_user.level < 1:
-            html.handleError(self.response, 403, "403 - Forbidden")
+            html.handle_error(self.response, 403, "403 - Forbidden")
             return
 
         event = ndb.Key

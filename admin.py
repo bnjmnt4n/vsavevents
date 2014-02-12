@@ -15,8 +15,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class Admin_Console(webapp2.RequestHandler):
     def get(self):
-        curr_user = user.getUser()
-        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         template = JINJA_ENVIRONMENT.get_template('templates/admin.html')
         self.response.out.write(template.render({
