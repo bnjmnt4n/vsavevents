@@ -112,14 +112,3 @@ th, td {
 	max-width: 960px;
 	margin: 0 auto;
 }
-
-.cf:before,
-.cf:after {
-    content: " ";
-    display: table;
-}
-
-.cf:after {
-    clear: both;
-}
-

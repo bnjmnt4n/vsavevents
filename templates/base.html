@@ -10,29 +10,30 @@
 <div id="header-container">
   <header>
     <h1><a href="/">vsavevents</a></h1>
-  {% block nav %}
+{% block nav %}
     <nav>
-      <ul class="cf">
+      <ul>
           <li><a href="/events">Events</a></li>
           <li><a href="/archives">Archives</a></li>
           <li><a href="/dutyroster">Duty Roster</a></li>
           <li><a href="{{ logoutUrl }}">Logout</a></li>
       </ul>
     </nav>
-  {% endblock nav %}
+{% endblock nav %}
   </header>
 </div>
 <div id="main">
 <article>
 {% if user %}
   {% if user.name %}
-    <p>Hello, {{ user.name }} ({{ user.email }})!<p>
+  <p>Hello, {{ user.name }} ({{ user.email }})!<p>
   {% else %}
-    <p>Hello, {{ user.email }}!</p>
+  <p>Hello, {{ user.email }}!</p>
   {% endif %}
 {% else %}
   <p>Hello!</p>
 {% endif %}
+
 <h2>{{ title }}</h2>
 {% block content %}
   Hi!
@@ -41,7 +42,7 @@
 </div>
 <div id="footer-container">
   <footer>
-    &copy; 2013-2014 by Benjamin Tan and Ng Wei En
+    &copy; 2013-2014 by <a href="https://github.com/d10">Benjamin Tan</a> and <a href="https://github.com/wei2912">Ng Wei En</a> | Code on <a href="https://github.com/d10/vsavevents">GitHub</a>
   </footer>
 </div>
 </body>

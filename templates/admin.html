@@ -2,21 +2,33 @@
 {% block content %}
 <p>Welcome to the admin console!</p>
 
-<h1>Add User</h1>
-
+<h2>Add User</h1>
 <form action="/admin/adduser" method="get">
-	<p>Name: <input type="text" name="name" /></p>
-	<p>Email: <input type="text" name="email" /></p>
-	<p>Level: <input type="text" name="level" /></p>
+	<div>
+    <label for="name">Name:</label>
+    <input type="text" name="name">
+  </div>
 
-	<input type="submit" name="adduser" value="Add User" />
+	<div>
+   <label for="email">Email:</label>
+   <input type="text" name="email">
+  </div>
+
+	<div>
+    <label for="level">Level:</label>
+    <input type="text" name="level">
+  </div>
+
+	<input type="submit" value="Add User" />
 </form>
 
-<h1>Rm User</h1>
-
+<h2>Rm User</h1>
 <form action="/admin/rmuser" method="get">
-	<p>Email: <input type="text" name="email" /></p>
+	<div>
+    <label for="email">Email:</label>
+    <input type="text" name="email">
+  </div>
 
-	<input type="submit" name="rmuser" value="Rm User" />
+	<input type="submit" value="Rm User">
 </form>
 {% endblock content %}

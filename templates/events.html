@@ -2,7 +2,8 @@
 {% block content %}
 {% if events %}
 <form method="get" action="/{{ url }}">
-  <input type="number" name="limit" maxlength="10" placeholder="Limit number of events">
+  <label for="limit">Limit number of events: </label>
+  <input type="number" name="limit" maxlength="10">
   <input type="submit">
 </form>
 <table>

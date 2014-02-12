@@ -1,13 +1,13 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 <table>
-    <tr><th>Date</th><td>{{ event.date.strftime('%d %B %Y (%A)') }}</td></tr>
-    <tr><th>Teacher</th><td>{{ event.teacher }}</td></tr>
-    <tr><th>Event</th><td>{{ event.name }}</td></tr>
-    <tr><th>Location</th><td>{{ event.location }}</td></tr>
-    <tr><th>Levels</th><td>{{ event.levels }}</td></tr>
-    <tr><th>Time</th><td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td></tr>
-    <tr><th>Equipment</th><td>{{ event.equipment }}</td></tr>
-    <tr><th>Remarks</th><td>{{ event.remarks }}</td></tr>
+  <tr><th>Date</th><td>{{ event.date.strftime('%d %B %Y (%A)') }}</td></tr>
+  <tr><th>Teacher</th><td>{{ event.teacher }}</td></tr>
+  <tr><th>Event</th><td>{{ event.name }}</td></tr>
+  <tr><th>Location</th><td>{{ event.location }}</td></tr>
+  <tr><th>Levels</th><td>{{ event.levels }}</td></tr>
+  <tr><th>Time</th><td>{{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</td></tr>
+  <tr><th>Equipment</th><td>{{ event.equipment }}</td></tr>
+  <tr><th>Remarks</th><td>{{ event.remarks }}</td></tr>
 </table>
 {% endblock content %}
