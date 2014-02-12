@@ -15,8 +15,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-    	curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+    	curr_user = user.getUser()
+        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
 
         if not curr_user:
         # logged out
@@ -34,5 +34,6 @@ class MainHandler(webapp2.RequestHandler):
                 'user': None
             }))
 
-
-app = webapp2.WSGIApplication([('/', MainHandler)], debug=True)
+app = webapp2.WSGIApplication([
+    ('/', MainHandler)
+], debug=True)

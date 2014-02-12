@@ -2,7 +2,7 @@ from google.appengine.api import users
 from google.appengine.ext.ndb import Key
 from models import User
 
-def get_user():
+def getUser():
     current_user = users.get_current_user()
     if current_user:
         email = current_user.email()
@@ -14,7 +14,7 @@ def get_user():
                 user.level = 2
         return user
 
-def create_login_urls(path):
+def createLoginUrls(path):
     loginUrl = users.create_login_url(path)
     logoutUrl = users.create_logout_url("/")
     return loginUrl, logoutUrl

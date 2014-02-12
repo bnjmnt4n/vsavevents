@@ -29,4 +29,6 @@ class LogSenderHandler(InboundMailHandler):
                     logging.info(txt)
                     old_format.parse(txt)
         
-app = webapp2.WSGIApplication([LogSenderHandler.mapping()], debug=True)
+app = webapp2.WSGIApplication([
+    LogSenderHandler.mapping()
+], debug=True)

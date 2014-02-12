@@ -3,10 +3,9 @@
 import webapp2
 import os
 import jinja2
-from datetime import datetime, timedelta
 from google.appengine.ext import ndb
 
-from utils import user, date
+from utils import user, date, html, integers
 from models import Event
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -16,29 +15,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 EVENTS_QUERY = Event.gql("WHERE date >= DATE(:1) ORDER BY date ASC, start_time ASC, end_time ASC")
 ARCHIVES_QUERY = Event.gql("WHERE date < DATE(:1) ORDER BY date DESC, start_time ASC, end_time ASC")
 
-def get_limit(request, default):
-    limit = request.get('limit')
-    try:
-        limit = int(limit)
-        return limit
-    except:
-        return default
-
-def handle_error(response, status, message):
-    response.write("<html><head><title>%s</title></head><body><h1>%s</h1></body></html>" % (message, message))
-    response.set_status(status)
-
 class EventsHandler(webapp2.RequestHandler):
     def get(self):
-        curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+        curr_user = user.getUser()
+        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
 
         if curr_user.level < 1:
-            handle_error(self.response, 403, "403 - Forbidden")
+            html.handleError(self.response, 403, "403 - Forbidden")
             return
 
     	events_query = EVENTS_QUERY.bind(date.getdate())
-        limit = get_limit(self.request, 20)
+        limit = integers.toInteger(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
 
@@ -47,20 +34,21 @@ class EventsHandler(webapp2.RequestHandler):
             'title': 'Events',
             'logoutUrl': logoutUrl,
             'user': curr_user,
-            'events': event_list
+            'events': event_list,
+            'url': 'events'
         }))
 
 class ArchivesHandler(webapp2.RequestHandler):
     def get(self):
-    	curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+    	curr_user = user.getUser()
+        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
 
         if curr_user.level < 1:
-            handle_error(self.response, 403, "403 - Forbidden")
+            html.handleError(self.response, 403, "403 - Forbidden")
             return
 
     	events_query = ARCHIVES_QUERY.bind(date.getdate())
-        limit = get_limit(self.request, 20)
+        limit = integers.toInteger(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
 
@@ -69,16 +57,17 @@ class ArchivesHandler(webapp2.RequestHandler):
             'title': 'Archives',
             'logoutUrl': logoutUrl,
             'user': curr_user,
-            'events': event_list
+            'events': event_list,
+            'url': 'archives'
         }))
 
 class EventHandler(webapp2.RequestHandler):
     def get(self, key):
-        curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+        curr_user = user.getUser()
+        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
 
         if curr_user.level < 1:
-            handle_error(self.response, 403, "403 - Forbidden")
+            html.handleError(self.response, 403, "403 - Forbidden")
             return
 
         try:
@@ -92,15 +81,15 @@ class EventHandler(webapp2.RequestHandler):
                 'event': event
             }))
         except:
-            handle_error(self.response, 404, "404 - Not found")
+            html.handleError(self.response, 404, "404 - Not found")
 
 class DutyRosterHandler(webapp2.RequestHandler):
     def get(self):
-        curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+        curr_user = user.getUser()
+        loginUrl, logoutUrl = user.createLoginUrls(self.request.path)
 
         if curr_user.level < 1:
-            handle_error(self.response, 403, "403 - Forbidden")
+            html.handleError(self.response, 403, "403 - Forbidden")
             return
 
         event = ndb.Key
