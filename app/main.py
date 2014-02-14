@@ -4,7 +4,7 @@ import webapp2
 from datetime import datetime, timedelta
 from google.appengine.ext import ndb
 
-from models import User
+from app.models import User
 from utils import user, template
 
 class MainHandler(webapp2.RequestHandler):

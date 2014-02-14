@@ -1,6 +1,6 @@
 from google.appengine.api import users
 from google.appengine.ext.ndb import Key
-from models import User
+from app.models import User
 
 def get_user():
     current_user = users.get_current_user()

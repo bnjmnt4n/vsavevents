@@ -1,7 +1,7 @@
 import logging
 from datetime import date, time, datetime
 
-from models import Event
+from app.models import Event
 from google.appengine.ext import ndb
 
 from utils import html

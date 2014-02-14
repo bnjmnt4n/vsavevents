@@ -4,7 +4,7 @@ import webapp2
 from google.appengine.ext import ndb
 
 from utils import user, date, html, integers, template
-from models import Event
+from app.models import Event
 
 EVENTS_QUERY = Event.gql("WHERE date >= DATE(:1) ORDER BY date ASC, start_time ASC, end_time ASC")
 ARCHIVES_QUERY = Event.gql("WHERE date < DATE(:1) ORDER BY date DESC, start_time ASC, end_time ASC")
