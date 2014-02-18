@@ -44,7 +44,9 @@ def add_info(info):
 
 def parse_info(msg):
     vals = [val for val in msg.split('\n') if val.strip() != '' and val.find(': ') != -1]
-    vals = dict(val.split(": ") for val in vals)
+    vals = [val.split(": ") for val in vals]
+    vals = [[val[0], ': '.join(val[1:])] for val in vals]
+    vals = dict(vals)
     
     # strip all keys
 
