@@ -3,7 +3,7 @@
 {% if events %}
 <form method="get" action="/{{ url }}">
   <label for="limit">Limit number of events: </label>
-  <input type="number" name="limit" maxlength="10">
+  <input type="number" name="limit" min="1" maxlength="10">
   <input type="submit">
 </form>
 <table>
