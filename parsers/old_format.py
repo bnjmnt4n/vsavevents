@@ -1,7 +1,7 @@
 import logging
 from datetime import date, time
 
-from models import Event
+from app.models import Event
 from google.appengine.ext import ndb
 
 def parse(msg):
