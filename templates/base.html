@@ -4,40 +4,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }} - vsavevents</title>
   <link rel="shortcut icon" href="/favicon.ico">
+
   <link rel="stylesheet" href="/resources/all.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 </head>
 <body>
 <div id="header-container">
   <header>
     <h1><a href="/">vsavevents</a></h1>
-{% block nav %}
     <nav>
       <ul>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/archives">Archives</a></li>
-          <li><a href="/dutyroster">Duty Roster</a></li>
-          <li><a href="{{ logoutUrl }}">Logout</a></li>
+        {% if user %}
+        <li><a href="/events">Events</a></li>
+        <li><a href="/archives">Archives</a></li>
+        <li><a href="/dutyroster">Duty Roster</a></li>
+        {% if user.level == 2 %}
+        <li><a href="/admin">Admin</a></li>
+        {% endif %}
+        <li><a href="{{ logoutUrl }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ loginUrl }}">Login</a></li>
+        {% endif %}
       </ul>
     </nav>
-{% endblock nav %}
   </header>
 </div>
 <div id="main">
 <article>
 {% if user %}
   {% if user.name %}
-  <p>Hello, {{ user.name }}!<p>
+  <p>Hello, {{ user.name }} ({{ user.email }})!<p>
   {% else %}
   <p>Hello, {{ user.email }}!</p>
   {% endif %}
-{% else %}
-  <p>Hello!</p>
-{% endif %}
 
-<h2>{{ title }}</h2>
-{% block content %}
-  Hi!
-{% endblock content %}
+  {% if user.level == 0 %}
+  <h2>403 Forbidden</h2>
+  <p>You are not authorized to view this page.</p>
+  <p>If you wish to be added access, please contact the admins: Ng Wei En and Benjamin Tan.</p>
+  {% else %}
+  <h2>{{ title }}</h2>
+  {% block content %}
+  {% endblock content %}
+  {% endif %}
+{% else %}
+  <h2>Hello!</h2>
+  <p>Please log in.</p>
+{% endif %}
 </article>
 </div>
 <div id="footer-container">

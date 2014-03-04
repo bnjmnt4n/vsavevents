@@ -8,3 +8,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 def send(response, name, options):
 	template = JINJA_ENVIRONMENT.get_template(name)
 	response.out.write(template.render(options))
+
+def render(name, options):
+	template = JINJA_ENVIRONMENT.get_template(name)
+	return template.render(options)

@@ -1,0 +1,6 @@
+rmuser [email]
+
+rmuser removes a user from the database.
+* email: Email of the user to be removed.
+
+If no user with the provided email is found, rmuser will return an error.

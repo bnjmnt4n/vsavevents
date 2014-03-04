@@ -10,8 +10,6 @@ def get_user():
         user = q.get()
         if not user:
             user = User(email=email, level=0)
-            if users.is_current_user_admin():
-                user.level = 2
         return user
 
 def create_login_urls(path):
