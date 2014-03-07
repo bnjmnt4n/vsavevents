@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from google.appengine.ext import ndb
 
 from app.models import User
-from utils import user, template
+from utils import user, template, html
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -13,19 +13,31 @@ class MainHandler(webapp2.RequestHandler):
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if not curr_user:
-        # logged out
-            template.send(self.response, 'templates/loggedout.html', {
-                'title': 'Home',
-                'loginUrl': loginUrl,
-                'user': None
-            })
-        else:
-            template.send(self.response, 'templates/home.html', {
-                'title': 'Home',
-                'logoutUrl': logoutUrl,
-                'user': None
-            })
+            self.redirect('/logout', {})
+            return
+
+        template.send(self.response, 'templates/home.html', {
+            'title': 'Home',
+            'logoutUrl': logoutUrl,
+            'user': curr_user
+        })
+
+class LoggedOutHandler(webapp2.RequestHandler):
+    def get(self):
+        curr_user = user.get_user()
+        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
+
+        if curr_user:
+            self.redirect('/', {})
+            return
+
+        template.send(self.response, 'templates/logout.html', {
+            'title': 'Home',
+            'loginUrl': loginUrl,
+            'user': None
+        })
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/logout', LoggedOutHandler)
 ], debug=True)

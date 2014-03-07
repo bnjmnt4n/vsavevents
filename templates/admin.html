@@ -2,33 +2,36 @@
 {% block content %}
 <p>Welcome to the admin console!</p>
 
-<h2>Add User</h1>
-<form action="/admin/adduser" method="get">
-	<div>
-    <label for="name">Name:</label>
-    <input type="text" name="name">
-  </div>
+<noscript>
+You need Javascript to operate this.
+</noscript>
 
-	<div>
-   <label for="email">Email:</label>
-   <input type="text" name="email">
-  </div>
+<pre><code id="console-output">
+Type "help" for help info.
 
-	<div>
-    <label for="level">Level:</label>
-    <input type="text" name="level">
-  </div>
+</code></pre>
+<input type="text" id="console">
+<input type="button" value="Clear" id="console-clear">
 
-	<input type="submit" value="Add User" />
-</form>
+<script>
+var ENTER = '13';
 
-<h2>Remove User</h1>
-<form action="/admin/rmuser" method="get">
-	<div>
-    <label for="email">Email:</label>
-    <input type="text" name="email">
-  </div>
+$('#console').keypress(function(event) {
+  var keycode = (event.keyCode ? event.keyCode : event.which);
+  if (keycode == ENTER) {
+    var cmd = $("#console").val().trim();
+    $("#console").val("");
 
-	<input type="submit" value="Rm User">
-</form>
+    $("#console-output").append("$ " + cmd + "\n");
+
+    $.get("/admin/console", {cmd: cmd}, function(data) {
+      $("#console-output").append(data + "\n\n");
+    });
+  }
+});
+
+$('#console-clear').click(function(event) {
+  $('#console-output').text("");
+});
+</script>
 {% endblock content %}

@@ -1,4 +1,6 @@
-User with same email already exists:
+Request successful!
+
+User information:
 
 Name: {{ name }}
 Email: {{ email }}

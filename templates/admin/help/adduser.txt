@@ -1,0 +1,12 @@
+adduser [name] [email] [level]
+
+adduser adds a user to the database.
+* name: Name of the user to be added.
+	* If spaces and other special characters are included in the name,
+	  use double quotes to enclose it.
+* email: Email of the user to be added.
+* level: Level of the user to be added.
+	* 1: Normal user
+	* 2: Administrator
+
+If an existing user with the provided email is found, adduser will return an error.
