@@ -14,6 +14,10 @@ class EventsHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
+        if curr_user.level < 1:
+            html.handle_error(self.response, 403, "403 - Forbidden")
+            return
+
     	events_query = EVENTS_QUERY.bind(date.get_date())
         limit = integers.to_integer(self.request.get('limit'), 20)
 
@@ -32,10 +36,15 @@ class ArchivesHandler(webapp2.RequestHandler):
     	curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
+        if curr_user.level < 1:
+            html.handle_error(self.response, 403, "403 - Forbidden")
+            return
+
     	events_query = ARCHIVES_QUERY.bind(date.get_date())
         limit = integers.to_integer(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
+
         template.send(self.response, 'templates/events.html', {
             'title': 'Archives',
             'logoutUrl': logoutUrl,
@@ -49,20 +58,33 @@ class EventHandler(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        event = ndb.Key(urlsafe=key).get()
-        template.send(self.response, 'templates/event.html', {
-            'title': 'Event: ' + event.name,
-            'logoutUrl': logoutUrl,
-            'user': curr_user,
-            'event': event
-        })
+        if curr_user.level < 1:
+            html.handle_error(self.response, 403, "403 - Forbidden")
+            return
+
+        try:
+            event = ndb.Key(urlsafe=key).get()
+
+            template.send(self.response, 'templates/event.html', {
+                'title': 'Event: ' + event.name,
+                'logoutUrl': logoutUrl,
+                'user': curr_user,
+                'event': event
+            })
+        except:
+            html.handle_error(self.response, 404, "404 - Not found")
 
 class DutyRosterHandler(webapp2.RequestHandler):
     def get(self):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
+        if curr_user.level < 1:
+            html.handle_error(self.response, 403, "403 - Forbidden")
+            return
+
         event = ndb.Key
+
         template.send(self.response, 'templates/dutyroster.html', {
             'title': 'Duty Roster',
             'logoutUrl': logoutUrl,

@@ -1,4 +1,4 @@
-User with same email already exists:
+User already exists:
 
 Name: {{ name }}
 Email: {{ email }}

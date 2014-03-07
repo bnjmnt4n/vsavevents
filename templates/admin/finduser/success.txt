@@ -1,7 +1,0 @@
-Request successful!
-
-User information:
-
-Name: {{ name }}
-Email: {{ email }}
-Level: {{ level }}

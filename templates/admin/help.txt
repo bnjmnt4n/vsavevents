@@ -1,4 +1,0 @@
-Commands:
-* adduser - adds a user to the database
-* rmuser - removes a user from the database
-* finduser - find a user in the database
