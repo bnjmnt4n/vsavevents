@@ -16,3 +16,4 @@ class User(ndb.Model):
 	name = ndb.StringProperty()
 	email = ndb.StringProperty()
 	level = ndb.IntegerProperty()
+	
