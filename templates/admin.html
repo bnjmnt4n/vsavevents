@@ -2,9 +2,7 @@
 {% block content %}
 <p>Welcome to the admin console!</p>
 
-<noscript>
-You need Javascript to operate this.
-</noscript>
+<noscript>You need Javascript to operate this.</noscript>
 
 <pre><code id="console-output">
 Type "help" for help info.
@@ -14,24 +12,37 @@ Type "help" for help info.
 <input type="button" value="Clear" id="console-clear">
 
 <script>
-var ENTER = '13';
+function $(id) {
+  return document.getElementById(id);
+}
+var ENTER = 13;
+var CONSOLE = $("console");
+var consoleOutput = $("console-output");
+var consoleClear = $("console-clear");
 
-$('#console').keypress(function(event) {
-  var keycode = (event.keyCode ? event.keyCode : event.which);
+CONSOLE.onkeydown = keyDown;
+
+function keyDown (event) {
+  var keycode = (event.keyCode != null ? event.keyCode : event.which);
   if (keycode == ENTER) {
-    var cmd = $("#console").val().trim();
-    $("#console").val("");
+    var cmd = CONSOLE.value.replace(/^\s+|\s+$/g, "");
+    CONSOLE.value = "";
+    consoleOutput.innerHTML += "$ " + cmd + "\n";
 
-    $("#console-output").append("$ " + cmd + "\n");
-
-    $.get("/admin/console", {cmd: cmd}, function(data) {
-      $("#console-output").append(data + "\n\n");
-    });
+    var request = new XMLHttpRequest();
+    request.open("GET", "/admin/console?cmd=" + encodeURIComponent(cmd), true);
+    request.onreadystatechange = function (data) {
+      if (request.readyState == 4 && request.status == 200) {
+        consoleOutput.innerHTML += data + "\n\n";
+      }
+    };
+    request.send();
   }
-});
+}
 
-$('#console-clear').click(function(event) {
-  $('#console-output').text("");
-});
+consoleClear.onclick = function (event) {
+  consoleOutput.innerHTML = "";
+};
+
 </script>
 {% endblock content %}
