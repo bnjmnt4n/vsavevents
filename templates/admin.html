@@ -31,9 +31,9 @@ function keyDown (event) {
 
     var request = new XMLHttpRequest();
     request.open("GET", "/admin/console?cmd=" + encodeURIComponent(cmd), true);
-    request.onreadystatechange = function (data) {
+    request.onreadystatechange = function () {
       if (request.readyState == 4 && request.status == 200) {
-        consoleOutput.innerHTML += data.responseText + "\n\n";
+        consoleOutput.innerHTML += request.responseText + "\n\n";
       }
     };
     request.send();
@@ -43,6 +43,5 @@ function keyDown (event) {
 consoleClear.onclick = function (event) {
   consoleOutput.innerHTML = "";
 };
-
 </script>
 {% endblock content %}
