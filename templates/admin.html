@@ -33,7 +33,7 @@ function keyDown (event) {
     request.open("GET", "/admin/console?cmd=" + encodeURIComponent(cmd), true);
     request.onreadystatechange = function (data) {
       if (request.readyState == 4 && request.status == 200) {
-        consoleOutput.innerHTML += data + "\n\n";
+        consoleOutput.innerHTML += data.responseText + "\n\n";
       }
     };
     request.send();
