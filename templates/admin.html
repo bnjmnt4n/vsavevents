@@ -32,6 +32,8 @@ function keyDown (event, submit) {
       }
     };
     request.send();
+    event.preventDefault && event.preventDefault();
+    return false;
   }
 }
 
