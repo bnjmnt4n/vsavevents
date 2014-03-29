@@ -1,4 +1,4 @@
-# [vsavevents](https://vsavevents.appspot.com) [![Build Status](http://b.adge.me/travis/d10/vsavevents.svg)](https://travis-ci.org/d10/vsavevents)
+# [vsavevents](https://vsavevents.appspot.com) [![Build Status](https://travis-ci.org/d10/vsavevents.svg?branch=master)](https://travis-ci.org/d10/vsavevents)
 
 [vsavevents](https://vsavevents.appspot.com) is a parser and displayer for VS AV Club's work orders. <br>
 It runs on [Google's](https://www.google.com) [App Engine](https://developers.google.com/appengine/) service, and is written in [Python](http://www.python.org/).
