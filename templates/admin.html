@@ -4,29 +4,24 @@
 
 <noscript>You need Javascript to operate this.</noscript>
 
-<pre><code id="console-output">
+<pre><code id="consoleOutput">
 Type "help" for help info.
 
 </code></pre>
-<input type="text" id="console">
-<input type="button" value="Clear" id="console-clear">
+<form>
+<input type="text" id="consoleInput" onkeydown="keyDown(event)">
+<input type="submit" id="submit" onclick="keyDown(event,true)">
+<input type="button" value="Clear" id="consoleClear" onclick="consoleOutput.innerHTML=''">
+</form>
 
 <script>
-function $(id) {
-  return document.getElementById(id);
-}
 var ENTER = 13;
-var CONSOLE = $("console");
-var consoleOutput = $("console-output");
-var consoleClear = $("console-clear");
 
-CONSOLE.onkeydown = keyDown;
-
-function keyDown (event) {
+function keyDown (event, submit) {
   var keycode = (event.keyCode != null ? event.keyCode : event.which);
-  if (keycode == ENTER) {
-    var cmd = CONSOLE.value.replace(/^\s+|\s+$/g, "");
-    CONSOLE.value = "";
+  if (keycode == ENTER || submit) {
+    var cmd = consoleInput.value.replace(/^\s+|\s+$/g, "");
+    consoleInput.value = "";
     consoleOutput.innerHTML += "$ " + cmd + "\n";
 
     var request = new XMLHttpRequest();
@@ -40,8 +35,5 @@ function keyDown (event) {
   }
 }
 
-consoleClear.onclick = function (event) {
-  consoleOutput.innerHTML = "";
-};
 </script>
 {% endblock content %}
