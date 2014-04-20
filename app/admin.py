@@ -12,7 +12,7 @@ class Admin_Console(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-        template.send(self.response, 'templates/admin.html', {
+	template.send(self.response, 'admin.html', {
             'title': 'Admin Console',
             'logoutUrl': logoutUrl,
             'user': curr_user
@@ -34,7 +34,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
             elif i == 3:
                 template_data = self.help(cmd)
             else:
-                template_data = template.render('templates/admin/invalid.txt', {})
+		template_data = template.render('admin/invalid.txt', {})
             i += 1
         
         self.response.headers['Content-Type'] = 'text/plain'
@@ -53,7 +53,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         adduser = User.query(User.email == email).get()
         if adduser: # user already exists
-            return template.render('templates/admin/adduser/exists.txt', {
+	    return template.render('admin/adduser/exists.txt', {
                 'name': User.name,
                 'email': User.email,
                 'level': User.level
@@ -63,7 +63,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         adduser = User(name=name, email=email, level=level)
         adduser.put()
 
-        return template.render('templates/admin/adduser/success.txt', {
+	return template.render('admin/adduser/success.txt', {
                 'name': name,
                 'email': email,
                 'level': level
@@ -78,7 +78,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         email = m.groups()[0]
         rmuser = User.query(User.email == email).get()
         if not rmuser: # user does not exist
-            return template.render('templates/admin/rmuser/notexists.txt', {
+	    return template.render('admin/rmuser/notexists.txt', {
                 'email': email
             })
 
@@ -88,7 +88,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         rmuser.key.delete()
 
-        return template.render('templates/admin/rmuser/success.txt', {
+	return template.render('admin/rmuser/success.txt', {
             'name': name,
             'email': email,
             'level': level
@@ -103,11 +103,11 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         email = m.groups()[0]
         user = User.query(User.email == email).get()
         if not user: # user does not exist
-            return template.render('templates/admin/finduser/notexists.txt', {
+	    return template.render('admin/finduser/notexists.txt', {
                 'email': email
             })
 
-        return template.render('templates/admin/finduser/success.txt', {
+	return template.render('admin/finduser/success.txt', {
             'name': user.name,
             'email': user.email,
             'level': user.level
@@ -121,15 +121,15 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         groups = m.groups()
         if not groups[0]:
-            return template.render('templates/admin/help.txt', {})
+	    return template.render('admin/help.txt', {})
         else:
             help_cmd = groups[0]
             if help_cmd == "adduser":
-                return template.render('templates/admin/help/adduser.txt', {})
+		return template.render('admin/help/adduser.txt', {})
             elif help_cmd == "rmuser":
-                return template.render('templates/admin/help/rmuser.txt', {})
+		return template.render('admin/help/rmuser.txt', {})
             elif help_cmd == "finduser":
-                return template.render('templates/admin/help/finduser.txt', {})
+		return template.render('admin/help/finduser.txt', {})
 
 app = webapp2.WSGIApplication([
     ('/admin', Admin_Console),

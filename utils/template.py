@@ -6,9 +6,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'])
 
 def send(response, name, options):
-	template = JINJA_ENVIRONMENT.get_template(name)
+	template = JINJA_ENVIRONMENT.get_template('templates/' + name)
 	response.out.write(template.render(options))
 
 def render(name, options):
-	template = JINJA_ENVIRONMENT.get_template(name)
+	template = JINJA_ENVIRONMENT.get_template('templates/' + name)
 	return template.render(options)

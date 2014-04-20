@@ -16,7 +16,7 @@ class MainHandler(webapp2.RequestHandler):
             self.redirect('/logout', {})
             return
 
-        template.send(self.response, 'templates/home.html', {
+	template.send(self.response, 'home.html', {
             'title': 'Home',
             'logoutUrl': logoutUrl,
             'user': curr_user
@@ -31,7 +31,7 @@ class LoggedOutHandler(webapp2.RequestHandler):
             self.redirect('/', {})
             return
 
-        template.send(self.response, 'templates/logout.html', {
+	template.send(self.response, 'logout.html', {
             'title': 'Home',
             'loginUrl': loginUrl,
             'user': None
