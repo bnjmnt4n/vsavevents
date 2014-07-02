@@ -12,8 +12,8 @@ class Admin_Console(webapp2.RequestHandler):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
-	template.send(self.response, 'admin.html', {
-            'title': 'Admin Console',
+        template.send(self.response, 'admin.html', {
+            'title': 'Admin Panel',
             'logoutUrl': logoutUrl,
             'user': curr_user
         })
@@ -34,7 +34,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
             elif i == 3:
                 template_data = self.help(cmd)
             else:
-		template_data = template.render('admin/invalid.txt', {})
+                template_data = template.render('console/invalid.txt', {})
             i += 1
         
         self.response.headers['Content-Type'] = 'text/plain'
@@ -53,7 +53,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         adduser = User.query(User.email == email).get()
         if adduser: # user already exists
-	    return template.render('admin/adduser/exists.txt', {
+            return template.render('console/adduser/exists.txt', {
                 'name': User.name,
                 'email': User.email,
                 'level': User.level
@@ -63,11 +63,11 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         adduser = User(name=name, email=email, level=level)
         adduser.put()
 
-	return template.render('admin/adduser/success.txt', {
-                'name': name,
-                'email': email,
-                'level': level
-            })
+        return template.render('console/adduser/success.txt', {
+            'name': name,
+            'email': email,
+            'level': level
+        })
 
     re_rmuser = re.compile(r'rmuser\s+([^\s]+?@\w+\.com)')
     def rmuser(self, cmd):
@@ -78,7 +78,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         email = m.groups()[0]
         rmuser = User.query(User.email == email).get()
         if not rmuser: # user does not exist
-	    return template.render('admin/rmuser/notexists.txt', {
+        return template.render('console/rmuser/notexists.txt', {
                 'email': email
             })
 
@@ -88,7 +88,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         rmuser.key.delete()
 
-	return template.render('admin/rmuser/success.txt', {
+    return template.render('console/rmuser/success.txt', {
             'name': name,
             'email': email,
             'level': level
@@ -103,11 +103,11 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         email = m.groups()[0]
         user = User.query(User.email == email).get()
         if not user: # user does not exist
-	    return template.render('admin/finduser/notexists.txt', {
+            return template.render('console/finduser/notexists.txt', {
                 'email': email
             })
 
-	return template.render('admin/finduser/success.txt', {
+        return template.render('console/finduser/success.txt', {
             'name': user.name,
             'email': user.email,
             'level': user.level
@@ -121,17 +121,25 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         groups = m.groups()
         if not groups[0]:
-	    return template.render('admin/help.txt', {})
+            return template.render('console/help.txt', {})
         else:
             help_cmd = groups[0]
             if help_cmd == "adduser":
-		return template.render('admin/help/adduser.txt', {})
+                return template.render('console/help/adduser.txt', {})
             elif help_cmd == "rmuser":
-		return template.render('admin/help/rmuser.txt', {})
+                return template.render('console/help/rmuser.txt', {})
             elif help_cmd == "finduser":
-		return template.render('admin/help/finduser.txt', {})
+                return template.render('console/help/finduser.txt', {})
+
+class Admin_AnnounceInput(webapp2.RequestHandler):
+    def get(self):
+        email = self.request.get('text').strip()
+        
+        self.response.headers['Content-Type'] = 'text/plain'
+        self.response.write(template_data)
 
 app = webapp2.WSGIApplication([
-    ('/admin', Admin_Console),
-    ('/admin/console*', Admin_ConsoleInput)
+    ('/admin', Admin),
+    ('/admin/console*', Admin_ConsoleInput),
+    ('/admin/email*', Admin_AnnounceInput)
 ], debug=True)

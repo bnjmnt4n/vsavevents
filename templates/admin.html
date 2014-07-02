@@ -17,7 +17,7 @@ Type "help" for help info.
 <script>
 var ENTER = 13;
 
-function keyDown (event, submit) {
+function keyDown(event, submit) {
   var keycode = (event.keyCode != null ? event.keyCode : event.which);
   if (keycode == ENTER || submit) {
     var cmd = consoleInput.value.replace(/^\s+|\s+$/g, "");
