@@ -1,4 +1,4 @@
-3#!/usr/bin/env python
+#!/usr/bin/env python
 
 import webapp2, re
 from datetime import datetime, timedelta
