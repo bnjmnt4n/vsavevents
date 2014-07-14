@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+3#!/usr/bin/env python
 
 import webapp2, re
 from datetime import datetime, timedelta
@@ -78,7 +78,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
         email = m.groups()[0]
         rmuser = User.query(User.email == email).get()
         if not rmuser: # user does not exist
-        return template.render('console/rmuser/notexists.txt', {
+        	return template.render('console/rmuser/notexists.txt', {
                 'email': email
             })
 
@@ -88,7 +88,7 @@ class Admin_ConsoleInput(webapp2.RequestHandler):
 
         rmuser.key.delete()
 
-    return template.render('console/rmuser/success.txt', {
+    	return template.render('console/rmuser/success.txt', {
             'name': name,
             'email': email,
             'level': level
