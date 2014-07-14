@@ -7,7 +7,7 @@ from google.appengine.ext import ndb
 from app.models import User
 from utils import user, template
 
-class Admin_Console(webapp2.RequestHandler):
+class Admin(webapp2.RequestHandler):
     def get(self):
         curr_user = user.get_user()
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
