@@ -15,6 +15,7 @@ class Admin(webapp2.RequestHandler):
         template.send(self.response, 'admin.html', {
             'title': 'Admin Panel',
             'logoutUrl': logoutUrl,
+            'users': User.query().order(-User.level, User.name, User.email),
             'user': curr_user
         })
 

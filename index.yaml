@@ -22,3 +22,10 @@ indexes:
     direction: desc
   - name: start_time
   - name: end_time
+
+- kind: User
+  properties:
+  - name: level
+    direction: desc
+  - name: name
+  - name: email
