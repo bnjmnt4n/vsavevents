@@ -17,7 +17,7 @@ class LogSenderHandler(InboundMailHandler):
         text_bodies = mail_message.bodies('text/plain')
         html_bodies = mail_message.bodies('text/html')
 
-        if sender in ("vsavict@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com", "wei2912.supp0rt@gmail.com", "webmaster@vs.moe.edu.sg"):
+        if sender in ("vsavict@gmail.com", "victoriaschoolavclub@gmail.com", "demoneaux@gmail.com", "weien1292@gmail.com", "wei2912.supp0rt@gmail.com", "webmaster@vs.moe.edu.sg"):
             if "[WORK ORDER]" in subject:
                 for text in html_bodies:
                     txt = text[1].decode()
