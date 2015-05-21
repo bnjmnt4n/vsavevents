@@ -20,9 +20,9 @@ def parse(msg):
         return
     
     msg = msg[1].split('-----------------------------------------------------------------------------------------------------------------------')
-    
-    logging.info(msg[0])
-    
+
+    logging.info(msg)
+
     info = parse_info(msg[0])
     logging.info(info)
     add_info(info)
@@ -53,7 +53,7 @@ def parse_info(msg):
     info = {
         'teacher': vals["Name"],
         'name': vals["Event"],
-        'date': vals["Date of Event /Rehearsal"],
+        'date': vals["Date of Event /Rehearsal"].split('/'),
         'levels': vals["Level Involved"],
         'location': vals["Venue"],
         'start_time': vals["Actual Start Time"],
@@ -63,9 +63,9 @@ def parse_info(msg):
     }
 
     # date
-    info['date'] += " "
-    info['date'] += str(date.today().year)
-    info['date'] = datetime.strptime(info['date'], "%b %d %Y").date()
+    info['date'] = '/'.join(['0' + string if len(string) < 2 else string for string in info['date']])
+    info['date'] += ' ' + str(date.today().year)
+    info['date'] = datetime.strptime(info['date'], "%m/%d %Y").date()
 
     # start and end times
     for val in ('start_time', 'end_time'):
@@ -102,7 +102,7 @@ def parse_subset(i, info, msg):
     subset = {
         'teacher': info['teacher'],
         'name': info['name'] + " [%d]" % (i),
-        'date': vals["[%d] Date of Event / Rehearsal" % (i)],
+        'date': vals["[%d] Date of Event / Rehearsal" % (i)].split('/'),
         'levels': info['levels'],
         'location': vals["[%d] Venue" % (i)],
         'start_time': vals["[%d] Actual Start Time" % (i)],
@@ -112,9 +112,9 @@ def parse_subset(i, info, msg):
     }
 
     # date
-    subset['date'] += " "
-    subset['date'] += str(date.today().year)
-    subset['date'] = datetime.strptime(subset['date'], "%b %d %Y").date()
+    subset['date'] = '/'.join(['0' + string if len(string) < 2 else string for string in subset['date']])
+    subset['date'] += ' ' + str(date.today().year)
+    subset['date'] = datetime.strptime(subset['date'], "%m/%d %Y").date()
 
     # start and end times
     for val in ('start_time', 'end_time'):
