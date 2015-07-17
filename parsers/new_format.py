@@ -53,7 +53,7 @@ def parse_info(msg):
     info = {
         'teacher': vals["Name"],
         'name': vals["Event"],
-        'date': vals["Date of Event /Rehearsal"].split('/'),
+        'date': vals["Date of Event /Rehearsal (mm/dd)"].split('/'),
         'levels': vals["Level Involved"],
         'location': vals["Venue"],
         'start_time': vals["Actual Start Time"],
