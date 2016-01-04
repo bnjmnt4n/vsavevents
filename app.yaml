@@ -21,7 +21,7 @@ handlers:
   secure: always
   login: admin
 
-- url: /(archives|events.*|dutyroster)
+- url: /(archives|events.*)
   script: app.events.app
   secure: always
   login: required

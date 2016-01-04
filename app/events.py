@@ -57,21 +57,8 @@ class EventHandler(webapp2.RequestHandler):
             'event': event
         })
 
-class DutyRosterHandler(webapp2.RequestHandler):
-    def get(self):
-        curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
-
-        event = ndb.Key
-	template.send(self.response, 'dutyroster.html', {
-            'title': 'Duty Roster',
-            'logoutUrl': logoutUrl,
-            'user': curr_user
-        })
-
 app = webapp2.WSGIApplication([
     ('/events', EventsHandler),
     ('/archives', ArchivesHandler),
-    ('/events/(.+)', EventHandler),
-    ('/dutyroster', DutyRosterHandler)
+    ('/events/(.+)', EventHandler)
 ], debug=True)
