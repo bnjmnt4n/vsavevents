@@ -1,7 +1,7 @@
-# [vsavevents](https://vsavevents.appspot.com/) [![Build Status](https://travis-ci.org/d10/vsavevents.svg?branch=master)](https://travis-ci.org/d10/vsavevents)
+# [vsavevents](https://vsavevents.appspot.com/) [![Build Status](https://travis-ci.org/demoneaux/vsavevents.svg?branch=master)](https://travis-ci.org/demoneaux/vsavevents)
 
 [vsavevents](https://vsavevents.appspot.com/) is a parser and displayer for [Victoria School](http://vs.moe.edu.sg/) Audio-Visual Club’s work orders.  
-It runs on [Google’s](https://www.google.com/) [App Engine](https://cloud.google.com/appengine) service, and is written in [Python](https://www.python.org/).
+It runs on [Google’s App Engine](https://cloud.google.com/appengine) service, and is written in [Python](https://www.python.org/).
 
 ## Get started
 
