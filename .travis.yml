@@ -8,3 +8,7 @@ git:
   depth: 10
 install: true
 script: true
+# deploy:
+#   provider: gae
+#   keyfile: ...
+#   project: vsavevents
