@@ -1,7 +1,0 @@
-finduser [email]
-
-finduser finds a user in the database based on his email 
-and returns his user information.
-* email: Email of the user.
-
-If no user with the provided email is found, finduser will return an error.

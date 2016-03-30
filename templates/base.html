@@ -17,9 +17,6 @@
         {% if user %}
         <li><a href="/events">Events</a></li>
         <li><a href="/archives">Archives</a></li>
-        {% if user.level == 2 %}
-        <li><a href="/admin">Admin</a></li>
-        {% endif %}
         <li><a href="{{ logoutUrl }}">Logout</a></li>
         {% else %}
         <li><a href="{{ loginUrl }}">Login</a></li>

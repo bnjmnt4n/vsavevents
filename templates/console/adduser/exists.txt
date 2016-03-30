@@ -1,5 +1,0 @@
-User with same email already exists:
-
-Name: {{ name }}
-Email: {{ email }}
-Level: {{ level }}

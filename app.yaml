@@ -16,11 +16,6 @@ handlers:
   script: app.main.app
   secure: always
 
-- url: /admin.*
-  script: app.admin.app
-  secure: always
-  login: admin
-
 - url: /(archives|events.*)
   script: app.events.app
   secure: always
@@ -47,3 +42,4 @@ libraries:
 
 - name: markupsafe
   version: latest
+  
