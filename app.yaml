@@ -6,23 +6,23 @@ threadsafe: yes
 
 handlers:
 - url: /_ah/mail/events@vsavevents.appspotmail.com
-  script: app.mail.app
+  script: app.mail
   login: admin
 
 - url: /resources
   static_dir: public/resources
 
 - url: /(logout)?
-  script: app.main.app
+  script: app.main
   secure: always
 
 - url: /users.*
-  script: app.users.app
+  script: app.users
   secure: always
   login: required
 
 - url: /(archives|events.*)
-  script: app.events.app
+  script: app.events
   secure: always
   login: required
 
