@@ -39,7 +39,7 @@ class UserHandler(webapp2.RequestHandler):
 
         if self.request.get('delete') == 'delete':
             viewed_user.key.delete()
-            self.redirect('/admin')
+            self.redirect('/users')
             return
 
         viewed_user.name = self.request.get('name') or 'Unknown'
