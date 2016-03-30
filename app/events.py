@@ -36,7 +36,7 @@ class ArchivesHandler(webapp2.RequestHandler):
         limit = integers.to_integer(self.request.get('limit'), 20)
 
         event_list = events_query.fetch(limit)
-	template.send(self.response, 'events.html', {
+        template.send(self.response, 'events.html', {
             'title': 'Archives',
             'logoutUrl': logoutUrl,
             'user': curr_user,
@@ -50,7 +50,7 @@ class EventHandler(webapp2.RequestHandler):
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         event = ndb.Key(urlsafe=key).get()
-	template.send(self.response, 'event.html', {
+        template.send(self.response, 'event.html', {
             'title': 'Event: ' + event.name,
             'logoutUrl': logoutUrl,
             'user': curr_user,

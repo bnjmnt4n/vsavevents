@@ -47,7 +47,7 @@ def parse_info(msg):
     vals = [val.split(": ") for val in vals]
     vals = [[val[0], ': '.join(val[1:])] for val in vals]
     vals = dict(vals)
-    
+
     # strip all keys
 
     info = {
