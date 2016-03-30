@@ -1,0 +1,7 @@
+{% macro input(name, value='', type='text') -%}
+<input type="{{ type }}" name="{{ name }}" id="{{ name }}" value="{{ value|e }}">
+{%- endmacro %}
+
+{% macro label(value, name) -%}
+<label for="{{ name }}">{{ value }}</label>
+{%- endmacro %}

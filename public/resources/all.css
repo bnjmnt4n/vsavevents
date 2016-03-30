@@ -102,6 +102,11 @@ th, td {
 	margin: 0 2px 1px 2px;
 }
 
+tr input[type="text"], tr input[type="email"] {
+    text-align: center;
+    width: 100%;
+}
+
 #main {
 	margin: 0;
 	padding: 0;

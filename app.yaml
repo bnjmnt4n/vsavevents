@@ -16,6 +16,11 @@ handlers:
   script: app.main.app
   secure: always
 
+- url: /users.*
+  script: app.users.app
+  secure: always
+  login: required
+
 - url: /(archives|events.*)
   script: app.events.app
   secure: always
@@ -32,6 +37,7 @@ handlers:
 
 inbound_services:
 - mail
+
 
 libraries:
 - name: webapp2

@@ -1,0 +1,37 @@
+{% extends 'templates/base.html' %}
+{% from 'templates/macros.html' import label, input %}
+{% block content %}
+<form id="form" method="POST">
+<table>
+  <tr>
+    <th>{{ label('Name', 'name') }}</th>
+    <td>{{ input('name', value=viewed_user.name) }}</td>
+  </tr>
+  <tr>
+    <th>{{ label('Email', 'email') }}</th>
+    <td>{{ input('email', value=viewed_user.email, type='email') }}</td>
+  </tr>
+  <tr>
+    <th>{{ label('Status', 'level') }}</th>
+    <td>
+      <select name="level" id="level">
+        <option value="1"{% if viewed_user.level == 1 or not viewed_user.level %} selected{% endif %}
+>Normal</option>
+        <option value="2"{% if viewed_user.level == 2 %} selected{% endif %}
+>Administrator</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th>Submit</th>
+    <td>
+      {% if viewed_user.name and viewed_user.email and viewed_user.level %}
+        <input type="hidden" name="delete" id="deleteUser" value="none">
+        <input type="button" onclick="deleteUser.value = 'delete'; form.submit()" value="Delete User">
+      {% endif %}
+      <input type="submit" value="Submit">
+    </td>
+  </tr>
+</table>
+</form>
+{% endblock content %}
