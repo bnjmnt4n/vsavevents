@@ -25,7 +25,7 @@
   <tr>
     <th>Submit</th>
     <td>
-      {% if viewed_user.name and viewed_user.email and viewed_user.level %}
+      {% if not viewed_user.new %}
         <input type="hidden" name="delete" id="deleteUser" value="none">
         <input type="button" onclick="deleteUser.value = 'delete'; form.submit()" value="Delete User">
       {% endif %}

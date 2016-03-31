@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 import webapp2, re
-from datetime import datetime, timedelta
 from google.appengine.ext import ndb
 
 from app.models import User
 from utils import user, template, integers
+
+email_regex = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
 
 class UsersListHandler(webapp2.RequestHandler):
     def get(self):
@@ -43,8 +44,19 @@ class UserHandler(webapp2.RequestHandler):
             return
 
         viewed_user.name = self.request.get('name') or 'Unknown'
-        viewed_user.email = self.request.get('email') or 'unknown@gmail.com'
+        viewed_user.email = self.request.get('email')
         viewed_user.level = integers.to_integer(self.request.get('level'), 1)
+
+        if not email_regex.match(viewed_user.email):
+            template.send(self.response, 'user.html', {
+                'title': 'User: ' + viewed_user.name,
+                'logoutUrl': logoutUrl,
+                'user': curr_user,
+                'viewed_user': viewed_user,
+                'message': 'Please enter a valid email address.'
+            })
+            return
+
         viewed_user.put()
 
         template.send(self.response, 'user.html', {
@@ -63,7 +75,9 @@ class NewUserHandler(webapp2.RequestHandler):
             'title': 'New User',
             'logoutUrl': logoutUrl,
             'user': curr_user,
-            'viewed_user': {}
+            'viewed_user': {
+                'new': True
+            }
         })
     def post(self):
         curr_user = user.get_user()
@@ -71,9 +85,20 @@ class NewUserHandler(webapp2.RequestHandler):
 
         info = {
             'name': self.request.get('name') or 'Unknown',
-            'email': self.request.get('email') or 'unknown@gmail.com',
+            'email': self.request.get('email'),
             'level': integers.to_integer(self.request.get('level'), 1)
         }
+
+        if not email_regex.match(info['email']):
+            info['new'] = True
+            template.send(self.response, 'user.html', {
+                'title': 'New User',
+                'logoutUrl': logoutUrl,
+                'user': curr_user,
+                'viewed_user': info,
+                'message': 'Please enter a valid email address.'
+            })
+            return
 
         key = User(**info).put()
 
