@@ -34,6 +34,9 @@
   <p>You are not authorized to view this page.</p>
   {% else %}
   <h2>{{ title }}</h2>
+  {% block message %}
+  <p>{{ message }}</p>
+  {% endblock message %}
   {% block content %}
   {% endblock content %}
   {% endif %}
