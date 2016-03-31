@@ -107,6 +107,11 @@ tr input[type="text"], tr input[type="email"] {
     width: 100%;
 }
 
+tr textarea {
+    width: 100%;
+    resize: vertical;
+}
+
 #main {
 	margin: 0;
 	padding: 0;
