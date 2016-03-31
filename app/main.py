@@ -13,7 +13,12 @@ class MainHandler(webapp2.RequestHandler):
         loginUrl, logoutUrl = user.create_login_urls(self.request.path)
 
         if not curr_user:
-            self.redirect('/logout', {})
+            # exit early if logged out
+            template.send(self.response, 'logout.html', {
+                'title': 'Home',
+                'loginUrl': loginUrl,
+                'user': None
+            })
             return
 
         template.send(self.response, 'home.html', {
@@ -22,22 +27,6 @@ class MainHandler(webapp2.RequestHandler):
             'user': curr_user
         })
 
-class LoggedOutHandler(webapp2.RequestHandler):
-    def get(self):
-        curr_user = user.get_user()
-        loginUrl, logoutUrl = user.create_login_urls(self.request.path)
-
-        if curr_user:
-            self.redirect('/', {})
-            return
-
-        template.send(self.response, 'logout.html', {
-            'title': 'Home',
-            'loginUrl': loginUrl,
-            'user': None
-        })
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/logout', LoggedOutHandler)
 ], debug=True)

@@ -12,7 +12,7 @@ handlers:
 - url: /resources
   static_dir: public/resources
 
-- url: /(logout)?
+- url: /
   script: app.main
   secure: always
 
