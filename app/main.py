@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
 import webapp2
-from datetime import datetime, timedelta
-from google.appengine.ext import ndb
 
-from app.models import User
-from utils import user, template, html
+from utils import user, template
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -14,17 +11,15 @@ class MainHandler(webapp2.RequestHandler):
 
         if not curr_user:
             # exit early if logged out
-            template.send(self.response, 'logout.html', {
+            template.send(self, 'logout.html', {
                 'title': 'Home',
                 'loginUrl': loginUrl,
                 'user': None
             })
             return
 
-        template.send(self.response, 'home.html', {
-            'title': 'Home',
-            'logoutUrl': logoutUrl,
-            'user': curr_user
+        template.send(self, 'home.html', {
+            'title': 'Home'
         })
 
 app = webapp2.WSGIApplication([
