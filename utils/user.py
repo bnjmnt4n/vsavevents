@@ -14,5 +14,5 @@ def get_user():
 
 def create_login_urls(path):
     loginUrl = users.create_login_url(path)
-    logoutUrl = users.create_logout_url("/")
+    logoutUrl = users.create_logout_url('/')
     return loginUrl, logoutUrl
