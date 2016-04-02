@@ -12,12 +12,8 @@ It runs on [Google’s App Engine](https://cloud.google.com/appengine) service, 
     ```python
     from app.models import User
 
-    adduser = User(name="Test Example", email="test@example.com")
+    adduser = User(name="Test User", email="test@example.com", level=2)
     adduser.put()
     ```
  
-    Once your user is added, you may proceed to view the site. This is only required the first time to add an admin; from now on, you can use the Admin Console.
-
-## Admin Console
-
-A console is available at `/admin` for administrators only.
+    Once your user is added, you may proceed to view the site. This is only required the first time to add an admin; from now on, you can edit users using the “Users” page.
