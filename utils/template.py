@@ -7,7 +7,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'])
 
 def send(jinja, name, options):
-	template = JINJA_ENVIRONMENT.get_template('templates/' + name)
+    template = JINJA_ENVIRONMENT.get_template('templates/' + name)
     jinja.response.out.write(
         template.render(
             configure(options, jinja.request)
