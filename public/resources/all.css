@@ -102,6 +102,16 @@ th, td {
 	margin: 0 2px 1px 2px;
 }
 
+tr input[type="text"], tr input[type="email"] {
+    text-align: center;
+    width: 100%;
+}
+
+tr textarea {
+    width: 100%;
+    resize: vertical;
+}
+
 #main {
 	margin: 0;
 	padding: 0;

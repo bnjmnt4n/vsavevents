@@ -1,1 +1,0 @@
-Invalid command. Type 'help' for more details.

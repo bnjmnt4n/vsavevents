@@ -1,0 +1,11 @@
+{% macro input(name, value='', type='text', required=False, placeholder=False) -%}
+<input type="{{ type }}" name="{{ name }}" id="{{ name }}" value="{{ value|e }}"{% if required %} required{% endif %}{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}>
+{%- endmacro %}
+
+{% macro label(value, name) -%}
+<label for="{{ name }}">{{ value }}</label>
+{%- endmacro %}
+
+{% macro textarea(name, value='', placeholder=False) -%}
+<textarea name="{{ name }}" id="{{ name }}"{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}>{{ value|e }}</textarea>
+{%- endmacro %}

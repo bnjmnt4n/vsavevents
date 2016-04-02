@@ -2,7 +2,6 @@ import logging
 import webapp2
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from parsers import old_format, new_format
-import re
 
 class LogSenderHandler(InboundMailHandler):
     def receive(self, mail_message):

@@ -46,7 +46,7 @@
       <p>
         <b>[2] Actual Event or Rehearsal?: </b>Actual Event<br>
         <b>[2] Venue: </b>Auditorium <br>
-        <b>[2] Date of Event / Rehearsal: </b>Oct 16<br>
+        <b>[2] Date of Event /Rehearsal: </b>Oct 16<br>
         <b>[2] Actual Start Time: </b>7:50 AM<br>
         <b>[2] End Time: </b>12:35 PM<br>
         <b>[2] SAME equipment as main page?: </b>Same Equipment<br>
@@ -65,7 +65,7 @@
       <p>
         <b>[3] Actual Event or Rehearsal?: </b><br>
         <b>[3] Venue: </b><br>
-        <b>[3] Date of Event / Rehearsal: </b><br>
+        <b>[3] Date of Event /Rehearsal: </b><br>
         <b>[3] Actual Start Time: </b><br>
         <b>[3] End Time: </b><br>
         <b>[3] SAME equipment as main page?: </b><br>

@@ -1,9 +1,9 @@
 def to_integer(string, default):
-	limit = string
+	integer = string
 
 	try:
-		limit = int(limit)
+		integer = int(integer)
 	except:
-		limit = default
+		integer = default
 
-	return limit
+	return integer
