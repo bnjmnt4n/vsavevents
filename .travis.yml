@@ -12,8 +12,8 @@ before_install:
   -in vsavevents.json.enc -out vsavevents.json -d
 install: true
 script: true
- deploy:
-   provider: gae
-   keyfile: vsavevents.json
-   project: vsavevents
-   on: master
+deploy:
+  provider: gae
+  keyfile: vsavevents.json
+  project: vsavevents
+  on: master
