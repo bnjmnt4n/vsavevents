@@ -1,5 +1,5 @@
 import logging
-from datetime import date, time, datetime
+from datetime import date, datetime
 
 from app.models import Event
 from google.appengine.ext import ndb
@@ -14,12 +14,12 @@ def parse(msg):
             msg[i] = msg[i] + " " # add a space to the colon; dirty hack
     msg = '\n'.join(msg)
     msg = msg.split('Dear AV/IT Dept, AV Teacher ICs, AV Club members,')
-    if len(msg) != 2: 
+    if len(msg) != 2:
         # decline all messages that aren't work orders
         logging.error("Message is not a valid work order. Disposing message.")
         return
-    
-    msg = msg[1].split('-----------------------------------------------------------------------------------------------------------------------')
+
+    msg = msg[1].split('-' * 119)
 
     logging.info(msg)
 
@@ -63,7 +63,12 @@ def parse_info(msg):
     }
 
     # date
-    info['date'] = '/'.join(['0' + string if len(string) < 2 else string for string in info['date']])
+    info['date'] = '/'.join([
+        '0' + string
+        if len(string) < 2
+        else string
+        for string in info['date']
+    ])
     info['date'] += ' ' + str(date.today().year)
     info['date'] = datetime.strptime(info['date'], "%m/%d %Y").date()
 
@@ -112,7 +117,12 @@ def parse_subset(i, info, msg):
     }
 
     # date
-    subset['date'] = '/'.join(['0' + string if len(string) < 2 else string for string in subset['date']])
+    subset['date'] = '/'.join([
+        '0' + string
+        if len(string) < 2
+        else string
+        for string in subset['date']
+    ])
     subset['date'] += ' ' + str(date.today().year)
     subset['date'] = datetime.strptime(subset['date'], "%m/%d %Y").date()
 

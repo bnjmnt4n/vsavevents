@@ -6,23 +6,23 @@ from google.appengine.ext import ndb
 
 def parse(msg):
     msg = msg.split('::: A USER HAS ENTERED A REQUEST FOR A AUDIO VISUAL WORK ORDER ::::')
-    if len(msg) != 2: 
+    if len(msg) != 2:
         # decline all messages that aren't work orders
         logging.error("Message is not a valid work order. Disposing message.")
         return
 
     # split up the divider between info and equipment
     vals = msg[1].split('================================================')
-    
+
     if len(vals) != 2: # decline all messages that aren't work orders
         return
-    
+
     info = parse_info(vals[0], vals[1])
     logging.info(info)
-    
-    if info == None:
+
+    if info is None:
         return
-    
+
     events_query = Event.query(
         ndb.AND(Event.name == info['name'], Event.date == info['date']),
         ndb.AND(Event.end_time == info['end_time'], Event.start_time == info['start_time'])
@@ -89,7 +89,7 @@ def parse_equipment(lines):
         else:
             try:
                 val = int(val)
-            except Exception, e:
+            except Exception:
                 pass
 
         if val:

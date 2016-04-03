@@ -16,12 +16,12 @@ def send(jinja, name, options):
 
 def configure(options, request):
     curr_user = user.get_user()
-    loginUrl, logoutUrl = user.create_login_urls(request.path)
+    login_url, logout_url = user.create_login_urls(request.path)
 
     if not curr_user:
-        options['loginUrl'] = loginUrl
+        options['loginUrl'] = login_url
     else:
-        options['logoutUrl'] = logoutUrl
+        options['logoutUrl'] = logout_url
 
     options['user'] = curr_user
 
