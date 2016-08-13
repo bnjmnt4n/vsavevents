@@ -10,6 +10,7 @@ git:
 before_install:
 - openssl aes-256-cbc -K $encrypted_9a7242d4f9d5_key -iv $encrypted_9a7242d4f9d5_iv
   -in vsavevents.json.enc -out vsavevents.json -d
+- tail -n +3 app.yaml > app.yaml.new && mv app.yaml.new app.yaml
 install: true
 script: true
 deploy:
