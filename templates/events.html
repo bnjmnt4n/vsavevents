@@ -1,11 +1,6 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 {% if events %}
-<form method="get" action="/{{ url }}">
-  <label for="limit">Limit number of events: </label>
-  <input type="number" name="limit" min="1" maxlength="10">
-  <input type="submit">
-</form>
 <table>
   <tr>
     <th>Date</th>
@@ -24,6 +19,9 @@
   </tr>
   {% endfor %}
 </table>
+{% if next %}
+<a href="/{{ url }}?cursor={{ next }}">View more.</a>
+{% endif %}
 {% else %}
   <p>There are no events.</p>
 {% endif %}
