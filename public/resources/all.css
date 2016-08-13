@@ -6,6 +6,12 @@ html, body, table {
 	-webkit-font-smoothing: antialiased;
 }
 
+body {
+	display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 #header-container, #footer-container {
 	background-color: #3592dd;
 	font-weight: 300;
@@ -116,7 +122,9 @@ tr textarea {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	overflow-x: scroll;
+	flex: 1;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 #main article {
