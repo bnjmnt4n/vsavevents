@@ -8,8 +8,8 @@ html, body, table {
 
 body {
 	display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 #header-container, #footer-container {
@@ -37,7 +37,7 @@ h1 {
 }
 
 h1 a, h1 a:visited {
-    font-weight: 300;
+	font-weight: 300;
 }
 
 nav, nav ul, nav li {
@@ -52,8 +52,8 @@ nav ul {
 }
 
 nav li {
-  display: inline-block;
-  margin: 0 6px;
+	display: inline-block;
+	margin: 0 6px;
 }
 
 nav a {
@@ -109,13 +109,13 @@ th, td {
 }
 
 tr input[type="text"], tr input[type="email"] {
-    text-align: center;
-    width: 100%;
+	text-align: center;
+	width: 100%;
 }
 
 tr textarea {
-    width: 100%;
-    resize: vertical;
+	width: 100%;
+	resize: vertical;
 }
 
 #main {
