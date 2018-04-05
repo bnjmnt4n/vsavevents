@@ -12,18 +12,18 @@ body {
 	flex-direction: column;
 }
 
-#header-container, #footer-container {
+#header-container {
 	background-color: #3592dd;
 	font-weight: 300;
 }
 
-header, footer {
+header {
 	padding: 20px 5%;
 	max-width: 960px;
 	margin: 0 auto;
 }
 
-header a, footer {
+header a {
 	text-align: center;
 	text-decoration: none;
 	color: white;
