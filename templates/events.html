@@ -11,7 +11,7 @@
   </tr>
   {% for event in events %}
   <tr>
-    <td>{{ event.date.strftime('%d %B, %A') }}</td>
+    <td>{{ event.date.strftime('%d %b $Y (%a)') }}</td>
     <td><a href="/events/{{ event.key.urlsafe() }}">{{ event.name }}</a></td>
     <td>{{ event.location }}</td>
     <td>{{ event.levels }}</td>
