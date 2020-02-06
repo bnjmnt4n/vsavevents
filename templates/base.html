@@ -1,65 +1,56 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>{{ title }} - vsavevents</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="/resources/all.css">
-</head>
-<body>
-<div id="header-container">
-  <header>
-    <h1><a href="/">vsavevents</a></h1>
-    <nav>
-      <ul>
-        {% if user %}
-        <li><a href="/events">Events</a></li>
-        <li><a href="/archives">Archives</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="{{ logoutUrl }}">Logout</a></li>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }} - vsavevents</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/resources/all.css">
+  </head>
+  <body>
+    <div id="header-container">
+      <header>
+        <h1><a href="/">vsavevents</a></h1>
+        <nav>
+          <ul>
+            {% if user %}
+            <li><a href="/events">Events</a></li>
+            <li><a href="/archives">Archives</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/login">Login</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div id="main">
+      <article>
+      {% if user %}
+        {% if user.level == 0 %}
+        <h2>403 Forbidden</h2>
+        <p>You are not authorized to view this page.</p>
         {% else %}
-        <li><a href="{{ loginUrl }}">Login</a></li>
+        <h2>{{ title }}</h2>
+        {% block message %}
+        <p>{{ message }}</p>
+        {% endblock message %}
+        {% block content %}
+        {% endblock content %}
         {% endif %}
-      </ul>
-    </nav>
-  </header>
-</div>
-<div id="main">
-<article>
-{% if user %}
-  {% if user.level == 0 %}
-  <h2>403 Forbidden</h2>
-  <p>You are not authorized to view this page.</p>
-  {% else %}
-  <h2>{{ title }}</h2>
-  {% block message %}
-  <p>{{ message }}</p>
-  {% endblock message %}
-  {% block content %}
-  {% endblock content %}
-  {% endif %}
-  
-  <p>
-    Logged in as:
-    {% if user.name %}
-    {{ user.name }} ({{ user.email }})
-    {% else %}
-    {{ user.email }}
-    {% endif %}
-  </p>
-{% else %}
-  <h2>Hello!</h2>
-  <p>Please log in.</p>
-{% endif %}
-</article>
-</div>
-<script>
-  window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-  ga('create', 'UA-38386306-4', 'auto');
-  ga('send', 'pageview');
-</script>
-<script src="https://www.google-analytics.com/analytics.js" async defer></script>
-</body>
+        
+        <p>
+          Logged in as:
+          {% if user.name %}
+          {{ user.name }} ({{ user.email }})
+          {% else %}
+          {{ user.email }}
+          {% endif %}
+        </p>
+      {% else %}
+        <h2>Hello! Please sign in with Google.</h2>
+      {% endif %}
+      </article>
+    </div>
+  </body>
 </html>

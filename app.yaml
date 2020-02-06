@@ -1,30 +1,24 @@
 application: vsavevents
 version: 1
-runtime: python27
-api_version: 1
-threadsafe: yes
+runtime: python3
 
 handlers:
 - url: /_ah/mail/events@vsavevents.appspotmail.com
   script: app.mail
   login: admin
 
+# - url: /users.*
+#   script: app.users
+#   secure: always
+#   login: required
+
+# - url: /(archives|events.*)
+#  script: app.events
+#  secure: always
+#  login: required
+
 - url: /resources
   static_dir: public/resources
-
-- url: /
-  script: app.main
-  secure: always
-
-- url: /users.*
-  script: app.users
-  secure: always
-  login: required
-
-- url: /(archives|events.*)
-  script: app.events
-  secure: always
-  login: required
 
 - url: /favicon\.ico
   static_files: public/favicon.ico
@@ -34,17 +28,5 @@ handlers:
   static_files: public/robots.txt
   upload: public\/robots\.txt
 
-
 inbound_services:
 - mail
-
-
-libraries:
-- name: webapp2
-  version: "2.5.2"
-
-- name: jinja2
-  version: latest
-
-- name: markupsafe
-  version: latest
