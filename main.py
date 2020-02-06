@@ -10,7 +10,7 @@ SCOPES = ['email']
 API_SERVICE_NAME = ''
 API_VERSION = 'v2'
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, static_url_path='')
 app.secret_key = 'REPLACE ME - this value is here as a placeholder.'
 
 def credentials_to_dict(credentials):
@@ -76,9 +76,13 @@ def logout():
         del flask.session['credentials']
     return flask.redirect('/')
 
-@app.route('/public/<path:path>')
-def public(path):
-    return flask.send_from_directory('public', path)
+@app.route('/favicon.ico')
+def favicon_ico():
+    return flask.send_from_directory('public/', 'favicon.ico')
+
+@app.route('/robots.txt')
+def robots_txt():
+    return flask.send_from_directory('public/', 'robots.txt')
 
 @app.route('/resources/<path:path>')
 def resources(path):
